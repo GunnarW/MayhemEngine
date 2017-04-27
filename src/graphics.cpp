@@ -45,7 +45,10 @@ bool Graphics::Initialize(int width, int height)
   }
 
   // Create the object
-  m_cube = new Object();
+  voxels.push_back(new VoxelObject());
+  voxels.push_back(new VoxelObject());
+  voxels.push_back(new VoxelObject());
+  //m_cube = new Object();
 
   // Set up the shaders
   m_shader = new Shader();
@@ -78,7 +81,7 @@ bool Graphics::Initialize(int width, int height)
 
   // Locate the projection matrix in the shader
   m_projectionMatrix = m_shader->GetUniformLocation("projectionMatrix");
-  if (m_projectionMatrix == INVALID_UNIFORM_LOCATION) 
+  if (m_projectionMatrix == INVALID_UNIFORM_LOCATION)
   {
     printf("m_projectionMatrix not found\n");
     return false;
@@ -86,7 +89,7 @@ bool Graphics::Initialize(int width, int height)
 
   // Locate the view matrix in the shader
   m_viewMatrix = m_shader->GetUniformLocation("viewMatrix");
-  if (m_viewMatrix == INVALID_UNIFORM_LOCATION) 
+  if (m_viewMatrix == INVALID_UNIFORM_LOCATION)
   {
     printf("m_viewMatrix not found\n");
     return false;
@@ -94,7 +97,7 @@ bool Graphics::Initialize(int width, int height)
 
   // Locate the model matrix in the shader
   m_modelMatrix = m_shader->GetUniformLocation("modelMatrix");
-  if (m_modelMatrix == INVALID_UNIFORM_LOCATION) 
+  if (m_modelMatrix == INVALID_UNIFORM_LOCATION)
   {
     printf("m_modelMatrix not found\n");
     return false;
@@ -109,12 +112,18 @@ bool Graphics::Initialize(int width, int height)
 
 void Graphics::Update(unsigned int dt)
 {
+  unsigned int i;
   // Update the object
-  m_cube->Update(dt);
+  for (i = 0; i < voxels.size(); i++) {
+      voxels[i]->Update(dt);
+  }
+
+  //m_cube->Update(dt);
 }
 
 void Graphics::Render()
 {
+    unsigned int i;
   //clear the screen
   glClearColor(0.0, 0.0, 0.2, 1.0);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -123,13 +132,14 @@ void Graphics::Render()
   m_shader->Enable();
 
   // Send in the projection and view to the shader
-  glUniformMatrix4fv(m_projectionMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetProjection())); 
-  glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView())); 
+  glUniformMatrix4fv(m_projectionMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetProjection()));
+  glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView()));
 
   // Render the object
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cube->GetModel()));
-  m_cube->Render();
-
+  for (i = 0; i < voxels.size(); i ++ ) {
+      glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(voxels[i]->GetModel()));
+      voxels[i]->Render();
+  }
   // Get any errors from OpenGL
   auto error = glGetError();
   if ( error != GL_NO_ERROR )
@@ -170,4 +180,3 @@ std::string Graphics::ErrorString(GLenum error)
     return "None";
   }
 }
-

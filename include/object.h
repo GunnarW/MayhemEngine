@@ -14,7 +14,7 @@ class Object
 
     glm::mat4 GetModel();
 
-  private:
+protected:
     glm::mat4 model;
     std::vector<Vertex> Vertices;
     std::vector<unsigned int> Indices;

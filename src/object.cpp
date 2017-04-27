@@ -1,7 +1,7 @@
 #include "object.h"
 
 Object::Object()
-{  
+{
   /*
     # Blender File for a Cube
     o Cube
@@ -79,7 +79,9 @@ Object::~Object()
 
 void Object::Update(unsigned int dt)
 {
-  angle += dt * M_PI/1000;
+  int i = rand() % 50;
+
+  angle += dt * M_PI/1000 * i;
   model = glm::rotate(glm::mat4(1.0f), (angle), glm::vec3(0.0, 1.0, 0.0));
 }
 
@@ -104,4 +106,3 @@ void Object::Render()
   glDisableVertexAttribArray(0);
   glDisableVertexAttribArray(1);
 }
-

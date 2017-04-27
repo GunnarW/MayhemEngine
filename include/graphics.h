@@ -8,6 +8,7 @@ using namespace std;
 #include "camera.h"
 #include "shader.h"
 #include "object.h"
+#include "VoxelObject.h"
 
 class Graphics
 {
@@ -29,6 +30,8 @@ class Graphics
     GLint m_modelMatrix;
 
     Object *m_cube;
+
+    std::vector< Object* > voxels;
 };
 
 #endif /* GRAPHICS_H */
