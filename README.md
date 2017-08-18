@@ -1,29 +1,14 @@
 # MayhemEngine
 
-### Ubuntu/Linux
-```bash
-sudo apt-get install libglew-dev libglm-dev libsdl2-dev
-```
+## Setup Instructions
+This project is built using Visual Studio. 
 
-### Mac OSX
-Installation of brew is suggested to easily install the libs. Ensure that the latest version of the Developer Tools is installed.
-```bash
-brew install glew glm sdl2
-```
+### Needed Libraries
+GLFW http://www.glfw.org/download.html
+CMake https://cmake.org/download/
+GLM http://glm.g-truc.net/
 
-## Building and Running
-To build this project there are two options. One is to use CMake which makes including new libraries easier, and handles new files added automatically to the src and include directory. CMake is a small new learning curve but makes things easier in the future.
-The second option is to use the provided Makefile which is used as usual.
-
-Running the make in a separate directory will allow easy cleanup of the build data, and an easy way to prevent unnecessary data to be added to the git repository.  
-
-### Makefile Instructions
-The makefile works as expected and must be updated with new files added in.
-
-```bash
-mkdir build
-cd build
-cp ../makefile .
-make
-./Tutorial
-```
+1. Extract GLFW and GLM to an external includes folder.
+2. Install CMake, Set the source code directory to GLFW's root directory. Set the build to be the GLFW's build folder. Got to the configure button, and select visual studio option.
+3. In Visual Studio, open the project settings and go to the "VC++ Directories" page. In the "Include Directories" item, select <edit> and select the includes folder that you created in step 1. 
+4. In Visual Studio's project settings, go to the "Linker/Input" page. Under the field "Additional Dependencies", hit the <edit> button and add opengl32.lib, and glfw3.lib.
