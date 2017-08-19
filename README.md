@@ -1,12 +1,12 @@
 # MayhemEngine
 
-## Setup Instructions
-This project is built using Visual Studio. 
-
 ### Needed Libraries
 GLFW http://www.glfw.org/download.html
 CMake https://cmake.org/download/
 GLM http://glm.g-truc.net/
+
+## Setup Instructions
+This project is built using Visual Studio. 
 
 1. Extract GLFW and GLM to an external includes folder.
 2. Install CMake, Set the source code directory to GLFW's root directory. Set the build to be the GLFW's build folder. Got to the configure button, and select visual studio option.

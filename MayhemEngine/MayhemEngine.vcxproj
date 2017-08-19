@@ -78,6 +78,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -122,6 +123,8 @@
     <ClCompile Include="GraphicsEngine.cpp" />
     <ClCompile Include="MayhemObject.cpp" />
     <ClCompile Include="MayhemObjectHandle.cpp" />
+    <ClCompile Include="MayhemObjects.cpp" />
+    <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="stb_image.cpp" />
@@ -131,6 +134,8 @@
     <ClInclude Include="GraphicsEngine.h" />
     <ClInclude Include="MayhemObject.h" />
     <ClInclude Include="MayhemObjectHandle.h" />
+    <ClInclude Include="MayhemObjects.h" />
+    <ClInclude Include="Renderable.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
   </ItemGroup>

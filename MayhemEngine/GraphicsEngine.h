@@ -11,6 +11,8 @@
 
 #include "Shader.h"
 #include "MayhemObject.h"
+//#include "GlobalHandleTable.h"
+
 class GraphicsEngine
 {
 public:
@@ -31,5 +33,6 @@ private:
 	unsigned int width;
 	unsigned int texture1, texture2;
 	MayhemObject* object;
+	MayhemObject* object2;
 };
 

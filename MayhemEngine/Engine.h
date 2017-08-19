@@ -11,6 +11,8 @@
 #include <vector>
 #include "MayhemObject.h"
 #include "GraphicsEngine.h"
+#include "MayhemObjects.h"
+#include "MayhemObjectHandle.h"
 
 class Engine
 {
@@ -37,5 +39,11 @@ private:
 
 	// Components
 	GraphicsEngine *graphicsComponent;
+	MayhemObjects *objects;
+
+	static const unsigned _int32 MAX_GAME_OBJECTS = 1024;
+
+	// Properties
+
 };
 

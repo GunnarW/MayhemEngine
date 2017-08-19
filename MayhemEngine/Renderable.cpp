@@ -1,19 +1,9 @@
-#include "MayhemObject.h"
+#include "Renderable.h"
 
 
-std::atomic<unsigned _int32> MayhemObject::s_uniqueId;
 
-MayhemObject::MayhemObject(): m_uniqueId(++s_uniqueId)
+Renderable::Renderable()
 {
-	std::cout << m_uniqueId << std::endl;
-
-	//m_handleIndex = FindFreeSlotInHandleTable();
-
-	if (m_handleIndex < 0) {
-		std::cout << "ERROR Creating Object: Max Objects created" << std::endl;
-		return;
-	}
-
 	m_mesh = {
 		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 		0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -58,8 +48,6 @@ MayhemObject::MayhemObject(): m_uniqueId(++s_uniqueId)
 		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 	};
 
-	m_position = glm::vec3(0.0f, 0.0f, 0.0f);
-
 	glGenVertexArrays(1, &m_VAO);
 	glGenBuffers(1, &m_VBO);
 
@@ -78,13 +66,12 @@ MayhemObject::MayhemObject(): m_uniqueId(++s_uniqueId)
 	m_shader = new Shader("Shaders/stdShader.vs", "Shaders/stdShader.fs");
 }
 
-MayhemObject::~MayhemObject()
+
+Renderable::~Renderable()
 {
-	delete m_shader;
-	m_shader = NULL;
 }
 
-void MayhemObject::LoadTexture(const char* filePath) {
+void Renderable::LoadTexture(const char* filePath) {
 	if (filePath == "") {
 		if (m_textureLoc == "") {
 			std::cout << "ERROR LOADING TEXTURE: no texture selected";
@@ -122,19 +109,11 @@ void MayhemObject::LoadTexture(const char* filePath) {
 }
 
 
-void MayhemObject::Update(double dt) {
+void Renderable::Update(double dt) {
 
-	if (this->m_isEnabled) {
-
-	}
 }
 
-void MayhemObject::SetEnabled(bool enabled) {
-	this->m_isEnabled = enabled;
-}
-
-
-void MayhemObject::Render(const glm::mat4 projection, const glm::mat4 view) {
+void Renderable::Render(const glm::mat4 projection, const glm::mat4 view) {
 	glActiveTexture(GL_TEXTURE);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
 
@@ -145,26 +124,13 @@ void MayhemObject::Render(const glm::mat4 projection, const glm::mat4 view) {
 
 	glBindVertexArray(m_VAO);
 
-	m_model = glm::translate(m_model, glm::sin(m_position));
+	m_model = glm::translate(m_model, glm::vec3(0.0f));
 	m_shader->SetMat4("model", m_model);
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
-void MayhemObject::SetPosition(const glm::vec3 position) {
-	m_position = position;
-}
 
-glm::mat4 MayhemObject::GetModel() const {
+glm::mat4 Renderable::GetModel() const {
 	return m_model;
-}
-
-int MayhemObject::FindFreeSlotInHandleTable() {
-	//for (unsigned _int32 i = 0; i < MAX_GAME_OBJECTS; i++) {
-	//	if (g_apGameObject[i] == NULL) {
-		//	g_apGameObject[i] = this;
-	//		return i;
-	//	}
-//	}
-	return -1;
 }

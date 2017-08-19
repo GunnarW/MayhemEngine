@@ -1,16 +1,17 @@
 #pragma once
-#include "MayhemObject.h"
-static const unsigned _int32 MAX_GAME_OBJECTS = 1024;
-static MayhemObject* g_apGameObject[MAX_GAME_OBJECTS];
-
+#include "MayhemObjects.h"
 class MayhemObjectHandle
 {
 public:
-	MayhemObjectHandle();
+	explicit MayhemObjectHandle(MayhemObjects* mayhemObjects, unsigned _int32 handleIndex);
+
 	~MayhemObjectHandle();
 
+	bool ObjectExists() const;
+
 private:
+	unsigned _int32 m_uniqueId;
 	unsigned _int32 m_handleIndex;
-	
+	MayhemObjects* m_mayhemObjects;
 };
 
