@@ -1,7 +1,7 @@
 #include "MayhemObjectHandle.h"
 
 
-// creates a reference to object in MayhemObjects
+
 MayhemObjectHandle::MayhemObjectHandle(MayhemObjects* mayhemObjects, unsigned _int32 handleIndex) :
 	m_mayhemObjects(mayhemObjects), m_handleIndex(handleIndex)
 {

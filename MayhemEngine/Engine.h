@@ -39,7 +39,7 @@ private:
 
 	// Components
 	GraphicsEngine *graphicsComponent;
-	MayhemObjects *objects;
+	MayhemObjects objects;
 
 	static const unsigned _int32 MAX_GAME_OBJECTS = 1024;
 

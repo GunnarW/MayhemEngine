@@ -46,10 +46,9 @@ bool Engine::Initialize() {
 
 
 	// Test objects and handles
-	objects = new MayhemObjects();
-	MayhemObjectHandle* handle1 = new MayhemObjectHandle(objects, objects->CreateObject());
-	MayhemObjectHandle* handle2 = new MayhemObjectHandle(objects, objects->CreateObject());
-	MayhemObjectHandle* handle3 = new MayhemObjectHandle(objects, objects->CreateObject());
+	MayhemObjectHandle* handle1 = new MayhemObjectHandle(&objects, objects.CreateObject());
+	MayhemObjectHandle* handle2 = new MayhemObjectHandle(&objects, objects.CreateObject());
+	MayhemObjectHandle* handle3 = new MayhemObjectHandle(&objects, objects.CreateObject());
 
 	std::cout << handle1->ObjectExists() << std::endl;
 	std::cout << handle2->ObjectExists() << std::endl;
