@@ -1,6 +1,14 @@
 #include "Shader.h"
 
-Shader::Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath)
+Shader::Shader() {
+
+}
+
+Shader::Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath) {
+	this->Initialize(vertexPath, fragmentPath, geometryPath);
+}
+
+void Shader::Initialize(const char* vertexPath, const char* fragmentPath, const char* geometryPath)
 {
 	// 1. retrieve the vertex/fragment source code from filePath
 	std::string vertexCode;
@@ -42,8 +50,10 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath, const char* geo
 	{
 		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
 	}
+
 	const char* vShaderCode = vertexCode.c_str();
 	const char * fShaderCode = fragmentCode.c_str();
+
 	// 2. compile shaders
 	unsigned int vertex, fragment;
 	int success;

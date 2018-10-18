@@ -6,7 +6,7 @@ MayhemObjectHandle::MayhemObjectHandle(MayhemObjects* mayhemObjects, unsigned _i
 	m_mayhemObjects(mayhemObjects), m_handleIndex(handleIndex)
 {
 	m_uniqueId = m_mayhemObjects->m_uniqueId[m_handleIndex];
-	std::cout << m_uniqueId << std::endl;
+	std::cout << "Unique ID: " << m_uniqueId << std::endl;
 }
 
 MayhemObjectHandle::~MayhemObjectHandle()
@@ -18,15 +18,11 @@ bool MayhemObjectHandle::ObjectExists() const {
 	return m_mayhemObjects->m_uniqueId[m_handleIndex] == m_uniqueId;
 }
 
-///////////////////////////// Setters ///////////////////////////////////////
-bool MayhemObjectHandle::SetTextureLoc(const _int32 textureLoc) {
-	if (ObjectExists()) {
-		m_mayhemObjects->m_textureLoc[m_handleIndex] = textureLoc;
-		return true;
-	}
-	return false;
+bool MayhemObjectHandle::HasRenderableComponent() const {
+	return &m_mayhemObjects->m_renderable[m_handleIndex]  != NULL;
 }
 
+///////////////////////////// Setters ///////////////////////////////////////
 bool MayhemObjectHandle::SetEnabled(const bool enabled) {
 	if (ObjectExists()) {
 		m_mayhemObjects->m_enabled[m_handleIndex] = enabled;
@@ -60,22 +56,30 @@ bool MayhemObjectHandle::SetRenderableComponent(const Renderable renderable) {
 }
 
 ///////////////////// Getters ///////////////////////////////////////////////////
-_int32 MayhemObjectHandle::GetTextureLoc()const {
-	return m_mayhemObjects->m_textureLoc[m_handleIndex];
-}
 
 bool MayhemObjectHandle::IsEnabled() const {
-	return m_mayhemObjects->m_enabled[m_handleIndex];
+	if (ObjectExists()) {
+		return m_mayhemObjects->m_enabled[m_handleIndex];
+	}
 }
 
 glm::vec3 MayhemObjectHandle::GetPosition() const {
-	return m_mayhemObjects->m_pos[m_handleIndex];
+	if (ObjectExists()) {
+		return m_mayhemObjects->m_pos[m_handleIndex];
+	}
 }
 
 glm::quat MayhemObjectHandle::GetRotation() const {
-	return m_mayhemObjects->m_rotation[m_handleIndex];
+	if (ObjectExists()) {
+		return m_mayhemObjects->m_rotation[m_handleIndex];
+	}
 }
 
-Renderable MayhemObjectHandle::GetRenderableComponent() const {
-	return m_mayhemObjects->m_renderable[m_handleIndex];
+
+Renderable* MayhemObjectHandle::GetRenderableComponent() const {
+	if (ObjectExists()) {
+	return &m_mayhemObjects->m_renderable[m_handleIndex];
+	}
 }
+
+

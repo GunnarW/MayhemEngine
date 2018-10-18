@@ -8,6 +8,7 @@ int main()
 {
 	// Setup new engine
 	Engine* engine = new Engine();
+	
 	engine->Initialize();
 
 	// Run engine

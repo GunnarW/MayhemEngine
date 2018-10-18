@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="glad.c" />
+    <ClCompile Include="MayhemObject.cpp" />
+    <ClCompile Include="MayhemObjectHandle.cpp" />
+    <ClCompile Include="MayhemObjects.cpp" />
+    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="stb_image.cpp" />
+    <ClCompile Include="GraphicsEngine.cpp">
+      <Filter>GraphicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderable.cpp">
+      <Filter>GraphicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>GraphicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="ScriptManager.cpp" />
+    <ClCompile Include="SceneLoader.cpp" />
+    <ClCompile Include="BasicRenderable.cpp">
+      <Filter>GraphicsEngine\BasicObject</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MayhemObject.h" />
+    <ClInclude Include="MayhemObjectHandle.h" />
+    <ClInclude Include="MayhemObjects.h" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="GraphicsEngine.h">
+      <Filter>GraphicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderable.h">
+      <Filter>GraphicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>GraphicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="luawrapper.hpp">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="luawrapperutil.hpp">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="lua.hpp">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptManager.h" />
+    <ClInclude Include="SceneLoader.h" />
+    <ClInclude Include="BasicRenderable.h">
+      <Filter>GraphicsEngine\BasicObject</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="GraphicsEngine">
+      <UniqueIdentifier>{ec9aec91-9a75-4447-8ad9-6528b4f7e3e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsEngine\BasicObject">
+      <UniqueIdentifier>{1218ade7-8cb7-49ca-a321-7ca285678c7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lua">
+      <UniqueIdentifier>{0688deed-3689-4888-9896-fcedc66e8eb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{04d59b75-d091-4a62-9fa1-39cc4de1c624}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Json">
+      <UniqueIdentifier>{da7fdfcb-4f57-4b82-9a83-42982018a651}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="test.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="testScene.json">
+      <Filter>Json</Filter>
+    </None>
+  </ItemGroup>
+</Project>

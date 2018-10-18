@@ -11,28 +11,34 @@
 
 #include "Shader.h"
 #include "MayhemObject.h"
+#include "MayhemObjectHandle.h"
 //#include "GlobalHandleTable.h"
 
 class GraphicsEngine
 {
 public:
-	GraphicsEngine();
-	GraphicsEngine(const unsigned int width, const unsigned int height);
+	GraphicsEngine(const unsigned int width = 800, const unsigned int height = 600, char* windowName = "Mayhem Engine");
 	~GraphicsEngine();
 	void Initialize();
+	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 	void Update(double dt);
 	void Render();
 
+	void AddObjectHandler(MayhemObjectHandle* handle);
+
+	// getters
+	GLFWwindow* GetWindow() const;
+
 private:
-	GLuint VBO;
-	GLuint VAO;
-	Shader* standardShader;
-	glm::mat4 view;
-	glm::mat4 projection;
-	unsigned int height;
-	unsigned int width;
-	unsigned int texture1, texture2;
-	MayhemObject* object;
-	MayhemObject* object2;
+	char* windowName;
+	GLFWwindow* window;
+	GLuint								VBO;
+	GLuint								VAO;
+	Shader*								standardShader;
+	glm::mat4							view;
+	glm::mat4							projection;
+	unsigned int						m_height;
+	unsigned int						m_width;
+	std::vector<MayhemObjectHandle*>	m_objectHandles;
 };
 

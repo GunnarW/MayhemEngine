@@ -4,6 +4,15 @@
 
 Renderable::Renderable()
 {
+
+}
+
+Renderable::~Renderable()
+{
+}
+
+void Renderable::Initialize()
+{
 	m_mesh = {
 		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 		0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -63,12 +72,7 @@ Renderable::Renderable()
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
-	m_shader = new Shader("Shaders/stdShader.vs", "Shaders/stdShader.fs");
-}
-
-
-Renderable::~Renderable()
-{
+	m_shader.Initialize("Shaders/stdShader.vs", "Shaders/stdShader.fs");
 }
 
 void Renderable::LoadTexture(const char* filePath) {
@@ -84,12 +88,15 @@ void Renderable::LoadTexture(const char* filePath) {
 
 	glGenTextures(1, &m_texture);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
+
 	// set the texture wrapping parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
 	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	// load image, create texture and generate mipmaps
 	int width, height, nrChannels;
 	stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
@@ -104,8 +111,8 @@ void Renderable::LoadTexture(const char* filePath) {
 		std::cout << "Failed to load texture" << std::endl;
 	}
 	stbi_image_free(data);
-	m_shader->Use();
-	m_shader->SetInt("texture", 0);
+	m_shader.Use();
+	m_shader.SetInt("texture", 0);
 }
 
 
@@ -117,15 +124,15 @@ void Renderable::Render(const glm::mat4 projection, const glm::mat4 view) {
 	glActiveTexture(GL_TEXTURE);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
 
-	m_shader->Use();
+	m_shader.Use();
 
-	m_shader->SetMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
-	m_shader->SetMat4("view", view);
+	m_shader.SetMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+	m_shader.SetMat4("view", view);
 
 	glBindVertexArray(m_VAO);
 
 	m_model = glm::translate(m_model, glm::vec3(0.0f));
-	m_shader->SetMat4("model", m_model);
+	m_shader.SetMat4("model", m_model);
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }

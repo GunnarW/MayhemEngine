@@ -19,6 +19,8 @@ public:
 	Renderable();
 	~Renderable();
 
+	virtual void Initialize();
+
 	void LoadTexture(const char* filePath = "");
 
 	void Update(double dt);
@@ -28,12 +30,17 @@ public:
 	glm::mat4 GetModel() const;
 
 private:
+	
+	int CreateVAO();
+	int UnbindBAO();
+	
+protected:
 	unsigned int m_texture;
 	GLuint m_VBO;		// 32bits
 	GLuint m_VAO;
 	glm::mat4 m_model;
 	std::vector<float> m_mesh;
-	Shader* m_shader;
+	Shader m_shader;
 	char* m_textureLoc;
 };
 

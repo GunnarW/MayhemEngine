@@ -1,58 +1,26 @@
 #include "Engine.h"
 
-Engine::Engine(const unsigned int width, const unsigned  int height, char* windowName) : width(width), height(height), windowName(windowName)
+Engine::Engine()
 {
-	
 }
 
 Engine::~Engine()
 {
-	delete graphicsComponent;
-	graphicsComponent = NULL;
-	delete enginePtr;
-	delete windowName;
+	delete m_enginePtr;
+
 }
 
 bool Engine::Initialize() {
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	window = glfwCreateWindow(this->width, this->height, windowName, NULL, NULL);
-	if (window == NULL)
-	{
-		std::cout << "Failed to create GLFW window" << std::endl;
-		glfwTerminate();
-		return false;
-	}
-	glfwMakeContextCurrent(window);
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
-	// glad: load all OpenGL function pointers
-	// ---------------------------------------
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
-		return false;
-	}
-
-	// configure global opengl state
-	// -----------------------------
-	glEnable(GL_DEPTH_TEST);
 	// Set up Graphics
-	this->graphicsComponent = new GraphicsEngine(width, height);
-	this->graphicsComponent->Initialize();
-
+	m_graphicsEngine.Initialize();
 
 	// Test objects and handles
-	MayhemObjectHandle* handle1 = new MayhemObjectHandle(&objects, objects.CreateObject());
-	MayhemObjectHandle* handle2 = new MayhemObjectHandle(&objects, objects.CreateObject());
-	MayhemObjectHandle* handle3 = new MayhemObjectHandle(&objects, objects.CreateObject());
+	//CreateHandle();
+	m_sceneLoader.LoadFile("testScene.json");
+	m_sceneLoader.ParseScene();
 
-	std::cout << handle1->ObjectExists() << std::endl;
-	std::cout << handle2->ObjectExists() << std::endl;
-	std::cout << handle3->ObjectExists() << std::endl;
+	LoadGameObjects();
+	// Init object specifics
 
 	// set time running
 	this->runTime = glfwGetTime();
@@ -62,28 +30,27 @@ bool Engine::Initialize() {
 
 void Engine::Run() {
 	// Game loop
-	while (!glfwWindowShouldClose(window))
+	while (!glfwWindowShouldClose(m_graphicsEngine.GetWindow()))
 	{
 		// input
-		ProcessInput(window);
+		ProcessInput(m_graphicsEngine.GetWindow());
 
 		// set DT
 		UpdateDT();
-		
+
 		// update components
-		this->graphicsComponent->Update(DT);
+		m_graphicsEngine.Update(DT);
 
 		// Render changes
-		this->graphicsComponent->Render();
+		m_graphicsEngine.Render();
 
 		// Swap the screen buffers
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(m_graphicsEngine.GetWindow());
 		glfwPollEvents();
 	}
 
 	// Terminate GLFW, clearing any resources allocated by GLFW.
 	glfwTerminate();
-	
 }
 
 
@@ -94,17 +61,37 @@ void Engine::ProcessInput(GLFWwindow *window)
 }
 
 
-void Engine::framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-	// make sure the viewport matches the new window dimensions; note that width and 
-	// height will be significantly larger than specified on retina displays.
-	glViewport(0, 0, width, height);
-}
-
-void Engine::UpdateDT() {
+void Engine::UpdateDT()
+{
 	DT = glfwGetTime() - runTime;
 	runTime = glfwGetTime();
 }
 
-double Engine::GetDT() {
+double Engine::GetDT()
+{
 	return DT;
+}
+
+void Engine::CreateHandle()
+{
+	m_objectHandles.push_back(new MayhemObjectHandle(&objects, objects.CreateObject()));
+}
+
+void Engine::LoadGameObjects() {
+	std::vector<ParsedObject> objects = m_sceneLoader.GetGameObjects();
+
+	for (unsigned int i = 0; i < objects.size(); i++) {
+		LoadGameObject(objects[i], i);
+	}
+}
+
+void Engine::LoadGameObject(ParsedObject object, int handlerIndex)
+{
+	CreateHandle();
+	m_graphicsEngine.AddObjectHandler(m_objectHandles[handlerIndex]);
+
+	m_objectHandles[handlerIndex]->GetRenderableComponent()->Initialize();
+	m_objectHandles[handlerIndex]->GetRenderableComponent()->LoadTexture(object.texture.c_str());
+	m_objectHandles[handlerIndex]->SetPosition(object.position);
+	m_objectHandles[handlerIndex]->SetEnabled(object.enable);
 }

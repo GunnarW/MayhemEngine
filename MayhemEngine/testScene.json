@@ -1,0 +1,17 @@
+{
+    "objects": [
+        {
+            "renderableType": "basic",
+            "position": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "enable": true,
+            "texture": "Textures/awesomeface.png",
+            "objectFile": "",
+            "vertexShader": "Shaders/stdShader.vs",
+            "fragmentShader": "Shaders/stdShader.fs"
+        }
+    ]
+}
