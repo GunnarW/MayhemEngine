@@ -124,12 +124,28 @@ void Renderable::Render(const glm::mat4 projection, const glm::mat4 view) {
 	glActiveTexture(GL_TEXTURE);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
 
+	//m_transform = glm::translate(m_transform, *m_position);
+	//float angle = 2.0f;
+	//m_transform = glm::rotate(m_transform, glm::radians(angle), glm::vec3(.5f, 1.5f, 0.5f));
 	m_shader.SetMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	m_shader.SetMat4("view", view);
 
+	m_shader.Use();
+	
+	m_shader.SetMat4("transform", m_transform);
+	
 	glBindVertexArray(m_VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
 
+glm::mat4 Renderable::GetTransform() const {
+	return m_transform;
+}
+
+void Renderable::SetPosition(glm::vec3* position)
+{
+	m_position = position;
+	m_transform = glm::translate(m_transform, *m_position);
+	m_transform = glm::rotate(m_transform, glm::radians(20.0f), glm::vec3(.5f, 1.5f, 0.5f));
 }
