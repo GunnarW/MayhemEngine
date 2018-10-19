@@ -22,6 +22,8 @@
     <ClCompile Include="BasicRenderable.cpp">
       <Filter>GraphicsEngine\BasicObject</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="InputManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MayhemObject.h" />
@@ -52,6 +54,8 @@
     <ClInclude Include="BasicRenderable.h">
       <Filter>GraphicsEngine\BasicObject</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="InputManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GraphicsEngine">

@@ -119,9 +119,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BasicRenderable.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="GraphicsEngine.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="MayhemObject.cpp" />
     <ClCompile Include="MayhemObjectHandle.cpp" />
     <ClCompile Include="MayhemObjects.cpp" />
@@ -134,8 +136,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicRenderable.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GraphicsEngine.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="lua.hpp" />
     <ClInclude Include="luawrapper.hpp" />
     <ClInclude Include="luawrapperutil.hpp" />

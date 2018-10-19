@@ -11,6 +11,8 @@ public:
 
 	bool HasRenderableComponent() const;
 
+	void Update(double);
+
 	// Setters
 	bool SetEnabled(const bool enabled);
 	bool SetPosition(const glm::vec3 pos);

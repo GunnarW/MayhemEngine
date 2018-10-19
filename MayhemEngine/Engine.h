@@ -36,23 +36,20 @@ private:
 	void CreateHandle();
 	void LoadGameObjects();
 	void LoadGameObject(ParsedObject, int);
+	void UpdateHandlers();
 
-	Engine *m_enginePtr = 0;
-
-	GLuint width;
-	GLuint height;
 	
-	std::vector<MayhemObject> mayhemObjects;
-	double DT;
-	double runTime;
-
+	Engine *m_enginePtr = 0;
+	GLuint m_width;
+	GLuint m_height;
+	double m_DT;
+	double m_runTime;
+	std::vector<MayhemObject> m_mayhemObjects;
 	// Components
 	GraphicsEngine m_graphicsEngine;
 	MayhemObjects objects;
 	SceneLoader m_sceneLoader;
-
 	static const unsigned _int32 MAX_GAME_OBJECTS = 1024;
-
 	// Properties
 	std::vector<MayhemObjectHandle*>	m_objectHandles;
 };

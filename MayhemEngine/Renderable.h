@@ -27,7 +27,11 @@ public:
 
 	void Render(const glm::mat4 projection, const glm::mat4 view);
 
-	glm::mat4 GetModel() const;
+	// Getters
+	glm::mat4 GetTransform() const;
+
+	// Setters
+	void SetPosition(glm::vec3*);
 
 private:
 	
@@ -38,9 +42,10 @@ protected:
 	unsigned int m_texture;
 	GLuint m_VBO;		// 32bits
 	GLuint m_VAO;
-	glm::mat4 m_model;
+	glm::mat4 m_transform;
 	std::vector<float> m_mesh;
 	Shader m_shader;
 	char* m_textureLoc;
+	glm::vec3* m_position;
 };
 

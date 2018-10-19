@@ -15,15 +15,12 @@ bool Engine::Initialize() {
 	m_graphicsEngine.Initialize();
 
 	// Test objects and handles
-	//CreateHandle();
 	m_sceneLoader.LoadFile("testScene.json");
 	m_sceneLoader.ParseScene();
-
 	LoadGameObjects();
-	// Init object specifics
 
 	// set time running
-	this->runTime = glfwGetTime();
+	this->m_runTime = glfwGetTime();
 
 	return true;
 }
@@ -39,7 +36,8 @@ void Engine::Run() {
 		UpdateDT();
 
 		// update components
-		m_graphicsEngine.Update(DT);
+		UpdateHandlers();
+		m_graphicsEngine.Update(m_DT);
 
 		// Render changes
 		m_graphicsEngine.Render();
@@ -63,13 +61,13 @@ void Engine::ProcessInput(GLFWwindow *window)
 
 void Engine::UpdateDT()
 {
-	DT = glfwGetTime() - runTime;
-	runTime = glfwGetTime();
+	m_DT = glfwGetTime() - m_runTime;
+	m_runTime = glfwGetTime();
 }
 
 double Engine::GetDT()
 {
-	return DT;
+	return m_DT;
 }
 
 void Engine::CreateHandle()
@@ -94,4 +92,12 @@ void Engine::LoadGameObject(ParsedObject object, int handlerIndex)
 	m_objectHandles[handlerIndex]->GetRenderableComponent()->LoadTexture(object.texture.c_str());
 	m_objectHandles[handlerIndex]->SetPosition(object.position);
 	m_objectHandles[handlerIndex]->SetEnabled(object.enable);
+}
+
+void Engine::UpdateHandlers()
+{
+	for (unsigned int i = 0; i < m_objectHandles.size(); i++)
+	{
+		m_objectHandles[i]->Update(m_DT);
+	}
 }

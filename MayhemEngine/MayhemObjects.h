@@ -34,7 +34,7 @@ private:
 
 	bool				m_enabled[MAX_GAME_OBJECTS];	// 8 bits each
 
-	glm::vec3			m_pos[MAX_GAME_OBJECTS];
+	glm::vec3			m_position[MAX_GAME_OBJECTS];
 
 	glm::quat			m_rotation[MAX_GAME_OBJECTS];
 

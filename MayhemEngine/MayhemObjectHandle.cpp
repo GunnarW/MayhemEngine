@@ -22,6 +22,11 @@ bool MayhemObjectHandle::HasRenderableComponent() const {
 	return &m_mayhemObjects->m_renderable[m_handleIndex]  != NULL;
 }
 
+void MayhemObjectHandle::Update(double DT)
+{
+	//m_mayhemObjects->m_renderable[m_handleIndex].SetPosition(m_mayhemObjects->m_position);
+}
+
 ///////////////////////////// Setters ///////////////////////////////////////
 bool MayhemObjectHandle::SetEnabled(const bool enabled) {
 	if (ObjectExists()) {
@@ -33,7 +38,9 @@ bool MayhemObjectHandle::SetEnabled(const bool enabled) {
 
 bool MayhemObjectHandle::SetPosition(const glm::vec3 pos) {
 	if (ObjectExists()) {
-		m_mayhemObjects->m_pos[m_handleIndex] = pos;
+		m_mayhemObjects->m_position[m_handleIndex] = pos;
+		std::cout << m_mayhemObjects->m_position[m_handleIndex].x << m_mayhemObjects->m_position[m_handleIndex].y << m_mayhemObjects->m_position[m_handleIndex].z << std::endl;
+		m_mayhemObjects->m_renderable[m_handleIndex].SetPosition(&m_mayhemObjects->m_position[m_handleIndex]);
 		return true;
 	}
 	return false;
@@ -65,7 +72,7 @@ bool MayhemObjectHandle::IsEnabled() const {
 
 glm::vec3 MayhemObjectHandle::GetPosition() const {
 	if (ObjectExists()) {
-		return m_mayhemObjects->m_pos[m_handleIndex];
+		return m_mayhemObjects->m_position[m_handleIndex];
 	}
 }
 

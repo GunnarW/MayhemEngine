@@ -3,12 +3,38 @@
         {
             "renderableType": "basic",
             "position": {
-                "x": 0,
-                "y": 0,
-                "z": 0
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
             },
             "enable": true,
-            "texture": "Textures/awesomeface.png",
+            "texture": "Textures/CobbleStone.png",
+            "objectFile": "",
+            "vertexShader": "Shaders/stdShader.vs",
+            "fragmentShader": "Shaders/stdShader.fs"
+        },
+        {
+            "renderableType": "basic",
+            "position": {
+                "x": 0.5,
+                "y": -0.5,
+                "z": 0.0
+            },
+            "enable": true,
+            "texture": "Textures/Dirt.png",
+            "objectFile": "",
+            "vertexShader": "Shaders/stdShader.vs",
+            "fragmentShader": "Shaders/stdShader.fs"
+        },
+        {
+            "renderableType": "basic",
+            "position": {
+                "x": -0.5,
+                "y": 0.5,
+                "z": 0.0
+            },
+            "enable": true,
+            "texture": "Textures/Grass.png",
             "objectFile": "",
             "vertexShader": "Shaders/stdShader.vs",
             "fragmentShader": "Shaders/stdShader.fs"

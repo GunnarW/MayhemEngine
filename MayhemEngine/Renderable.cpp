@@ -124,20 +124,12 @@ void Renderable::Render(const glm::mat4 projection, const glm::mat4 view) {
 	glActiveTexture(GL_TEXTURE);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
 
-	m_shader.Use();
-
 	m_shader.SetMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	m_shader.SetMat4("view", view);
 
 	glBindVertexArray(m_VAO);
-
-	m_model = glm::translate(m_model, glm::vec3(0.0f));
-	m_shader.SetMat4("model", m_model);
-
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
 
-glm::mat4 Renderable::GetModel() const {
-	return m_model;
 }

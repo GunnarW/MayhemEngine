@@ -26,10 +26,10 @@ public:
 
 	void ParseScene();
 	void LoadFile(std::string);
-	void ParseObjects();
 	std::vector<ParsedObject> GetGameObjects();
 
 private:
+	void ParseObjects();
 	void ParseObject(nlohmann::json);
 	std::string m_fileName;
 	nlohmann::json m_jsonFile;

@@ -12,6 +12,9 @@
 #include "Shader.h"
 #include "MayhemObject.h"
 #include "MayhemObjectHandle.h"
+#include "Camera.h"
+#include "InputManager.h"
+
 //#include "GlobalHandleTable.h"
 
 class GraphicsEngine
@@ -30,13 +33,16 @@ public:
 	GLFWwindow* GetWindow() const;
 
 private:
+	void ClearScreen();
+
 	char* windowName;
-	GLFWwindow* window;
+	GLFWwindow* m_window;
+	Camera								m_camera;
 	GLuint								VBO;
 	GLuint								VAO;
 	Shader*								standardShader;
-	glm::mat4							view;
-	glm::mat4							projection;
+	glm::mat4							m_view;
+	glm::mat4							m_projection;
 	unsigned int						m_height;
 	unsigned int						m_width;
 	std::vector<MayhemObjectHandle*>	m_objectHandles;

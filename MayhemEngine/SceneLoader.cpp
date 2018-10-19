@@ -29,7 +29,6 @@ void SceneLoader::ParseObjects()
 void SceneLoader::LoadFile(std::string fileName)
 {
 	m_fileName = fileName;
-
 	std::fstream fileStream(m_fileName);
 	fileStream >> m_jsonFile;
 }
@@ -41,6 +40,7 @@ std::vector<ParsedObject> SceneLoader::GetGameObjects()
 
 void SceneLoader::ParseObject(nlohmann::json jsonObject)
 {
+	std::cout << jsonObject << std::endl;
 	struct ParsedObject object;
 
 	jsonObject.at("renderableType").get_to(object.renderable);
