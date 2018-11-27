@@ -86,12 +86,27 @@ void Engine::LoadGameObjects() {
 void Engine::LoadGameObject(ParsedObject object, int handlerIndex)
 {
 	CreateHandle();
-	m_graphicsEngine.AddObjectHandler(m_objectHandles[handlerIndex]);
 
-	m_objectHandles[handlerIndex]->GetRenderableComponent()->Initialize();
-	m_objectHandles[handlerIndex]->GetRenderableComponent()->LoadTexture(object.texture.c_str());
+	m_graphicsEngine.AddObjectHandler(m_objectHandles[handlerIndex]);
+	m_graphicsEngine.LoadModel(m_objectHandles[handlerIndex], object.objectFile.c_str());
+	m_graphicsEngine.InitializeShader(m_objectHandles[handlerIndex]);
+
 	m_objectHandles[handlerIndex]->SetPosition(object.position);
+	m_objectHandles[handlerIndex]->SetTransform(glm::translate(m_objectHandles[handlerIndex]->GetTransform(), object.position));
+	m_objectHandles[handlerIndex]->SetTransform(glm::scale(m_objectHandles[handlerIndex]->GetTransform(), glm::vec3(0.2f, 0.2f, 0.2f)));
+
 	m_objectHandles[handlerIndex]->SetEnabled(object.enable);
+
+	m_objectHandles[handlerIndex]->SetDirection(object.direction);
+	m_objectHandles[handlerIndex]->SetAmbient(object.ambient);
+	m_objectHandles[handlerIndex]->SetDiffuse(object.diffuse);
+	m_objectHandles[handlerIndex]->SetSpecular(object.specular);
+
+	m_objectHandles[handlerIndex]->SetConstant(object.constant);
+	m_objectHandles[handlerIndex]->SetLinear(object.linear);
+	m_objectHandles[handlerIndex]->SetQuadratic(object.quadratic);
+	m_objectHandles[handlerIndex]->SetCutOff(object.cutOff);
+	m_objectHandles[handlerIndex]->SetOuterCutOff(object.outerCutOff);
 }
 
 void Engine::UpdateHandlers()

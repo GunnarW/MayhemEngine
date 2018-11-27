@@ -13,7 +13,6 @@
 #include <nlohmann/json.hpp>
 #include "ScriptManager.h"
 #include "SceneLoader.h"
-#include "MayhemObject.h"
 #include "GraphicsEngine.h"
 #include "MayhemObjects.h"
 #include "MayhemObjectHandle.h"
@@ -44,7 +43,6 @@ private:
 	GLuint m_height;
 	double m_DT;
 	double m_runTime;
-	std::vector<MayhemObject> m_mayhemObjects;
 	// Components
 	GraphicsEngine m_graphicsEngine;
 	MayhemObjects objects;

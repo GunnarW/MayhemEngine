@@ -2,15 +2,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="glad.c" />
-    <ClCompile Include="MayhemObject.cpp" />
     <ClCompile Include="MayhemObjectHandle.cpp" />
     <ClCompile Include="MayhemObjects.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="GraphicsEngine.cpp">
-      <Filter>GraphicsEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderable.cpp">
       <Filter>GraphicsEngine</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
@@ -19,21 +15,26 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="ScriptManager.cpp" />
     <ClCompile Include="SceneLoader.cpp" />
-    <ClCompile Include="BasicRenderable.cpp">
-      <Filter>GraphicsEngine\BasicObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Light.cpp">
+      <Filter>GraphicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>GraphicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>GraphicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="PointLight.cpp" />
+    <ClCompile Include="Renderer.cpp">
+      <Filter>GraphicsEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MayhemObject.h" />
     <ClInclude Include="MayhemObjectHandle.h" />
     <ClInclude Include="MayhemObjects.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="GraphicsEngine.h">
-      <Filter>GraphicsEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderable.h">
       <Filter>GraphicsEngine</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
@@ -51,11 +52,20 @@
     </ClInclude>
     <ClInclude Include="ScriptManager.h" />
     <ClInclude Include="SceneLoader.h" />
-    <ClInclude Include="BasicRenderable.h">
-      <Filter>GraphicsEngine\BasicObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Light.h">
+      <Filter>GraphicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>GraphicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>GraphicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLight.h" />
+    <ClInclude Include="Renderer.h">
+      <Filter>GraphicsEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GraphicsEngine">

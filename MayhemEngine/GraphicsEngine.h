@@ -10,10 +10,10 @@
 #include <iostream>
 
 #include "Shader.h"
-#include "MayhemObject.h"
 #include "MayhemObjectHandle.h"
 #include "Camera.h"
 #include "InputManager.h"
+#include "Renderer.h"
 
 //#include "GlobalHandleTable.h"
 
@@ -28,6 +28,8 @@ public:
 	void Render();
 
 	void AddObjectHandler(MayhemObjectHandle* handle);
+	void LoadModel(MayhemObjectHandle* handle, std::string path);
+	void InitializeShader(MayhemObjectHandle* handle);
 
 	// getters
 	GLFWwindow* GetWindow() const;
@@ -37,9 +39,10 @@ private:
 
 	char* windowName;
 	GLFWwindow* m_window;
+	Renderer	m_renderer;
 	Camera								m_camera;
-	GLuint								VBO;
-	GLuint								VAO;
+	GLuint								m_VBO;
+	GLuint								m_VAO;
 	Shader*								standardShader;
 	glm::mat4							m_view;
 	glm::mat4							m_projection;

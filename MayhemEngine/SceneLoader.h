@@ -10,12 +10,23 @@
 
 struct ParsedObject {
 	std::string renderable;
+
 	glm::vec3 position;
+	glm::vec3 direction;
+	glm::vec3 ambient;
+	glm::vec3 diffuse;
+	glm::vec3 specular;
+
 	std::string texture;
 	std::string objectFile;
-	std::string vertexShader;
-	std::string fragmentShader;
+	
 	bool enable;
+
+	float constant;
+	float linear;
+	float quadratic;
+	float cutOff;
+	float outerCutOff;
 };
 
 class SceneLoader
@@ -31,8 +42,14 @@ public:
 private:
 	void ParseObjects();
 	void ParseObject(nlohmann::json);
+	
 	std::string m_fileName;
 	nlohmann::json m_jsonFile;
 	std::vector<ParsedObject> m_parsedObjects;
+
+	glm::vec3 LoadVec3(nlohmann::json);
+	std::string LoadString(nlohmann::json);
+	bool LoadBool(nlohmann::json);
+	float LoadFloat(nlohmann::json);
 };
 

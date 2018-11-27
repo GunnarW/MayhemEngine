@@ -9,35 +9,29 @@
             },
             "enable": true,
             "texture": "Textures/CobbleStone.png",
-            "objectFile": "",
-            "vertexShader": "Shaders/stdShader.vs",
-            "fragmentShader": "Shaders/stdShader.fs"
+            "objectFile": "Assets/Models/Skeleton.obj"
         },
         {
             "renderableType": "basic",
             "position": {
-                "x": 0.5,
-                "y": -0.5,
+                "x": 8,
+                "y": 0.0,
                 "z": 0.0
             },
             "enable": true,
             "texture": "Textures/Dirt.png",
-            "objectFile": "",
-            "vertexShader": "Shaders/stdShader.vs",
-            "fragmentShader": "Shaders/stdShader.fs"
+            "objectFile": "Assets/Models/PottedFlowers.obj"
         },
         {
             "renderableType": "basic",
             "position": {
-                "x": -0.5,
-                "y": 0.5,
+                "x": -8,
+                "y": 0.0,
                 "z": 0.0
             },
             "enable": true,
             "texture": "Textures/Grass.png",
-            "objectFile": "",
-            "vertexShader": "Shaders/stdShader.vs",
-            "fragmentShader": "Shaders/stdShader.fs"
+            "objectFile": "Assets/Models/Character.obj"
         }
     ]
 }

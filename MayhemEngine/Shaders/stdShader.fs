@@ -1,12 +1,14 @@
 #version 330 core
 out vec4 FragColor;
 
-in vec2 TexCoord;
+in vec2 TexCoords;
+in vec3 Normal;
+in vec3 FragPos;
 
-uniform sampler2D ourTexture1;
-uniform sampler2D ourTexture2;
+uniform sampler2D texture_diffuse1;
+uniform vec3 cameraPosition;
 
 void main()
 {
-    FragColor = texture(ourTexture1, TexCoord);
+    FragColor = texture(texture_diffuse1, TexCoords);
 }

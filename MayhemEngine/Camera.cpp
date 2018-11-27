@@ -4,7 +4,7 @@
 
 Camera::Camera()
 {
-	m_position = glm::vec3(0.0f, 0.0f, 5.0f);
+	m_position = glm::vec3(0.0f, 5.0f, 25.0f);
 
 	m_pitch = 0;
 	m_yaw = 0;

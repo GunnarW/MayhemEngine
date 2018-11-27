@@ -16,8 +16,8 @@ public:
 	
 	Shader();
 
-	Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
-	void Initialize(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
+	Shader(const char*, const char*, const char* geometryPath = nullptr);
+	void Initialize(const char*, const char*, const char* geometryPath = nullptr);
 
 	// activate the shader
 	void Use();

@@ -1,7 +1,6 @@
 #include <iostream>
 // Mayhem Engine
 #include "Engine.h"
-#include "MayhemObject.h"
 
 // The MAIN function, from here we start the application and run the game loop
 int main()

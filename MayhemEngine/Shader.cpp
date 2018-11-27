@@ -50,14 +50,10 @@ void Shader::Initialize(const char* vertexPath, const char* fragmentPath, const 
 	{
 		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
 	}
-
 	const char* vShaderCode = vertexCode.c_str();
 	const char * fShaderCode = fragmentCode.c_str();
-
 	// 2. compile shaders
 	unsigned int vertex, fragment;
-	int success;
-	char infoLog[512];
 	// vertex shader
 	vertex = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertex, 1, &vShaderCode, NULL);
