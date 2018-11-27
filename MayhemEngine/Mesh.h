@@ -25,6 +25,7 @@ public:
 	~Mesh();
 
 	virtual void Initialize(std::vector<Vertex>, std::vector<unsigned int>, std::vector<Texture>);
+	void Draw(Shader*);
 
 private:
 
@@ -33,5 +34,6 @@ protected:
 	std::vector<unsigned int> m_indices;
 	std::vector<Texture> m_textures;
 
+	unsigned int m_VAO, m_VBO, m_EBO;
 };
 

@@ -11,14 +11,13 @@ GraphicsEngine::~GraphicsEngine()
 {
 	delete standardShader;
 	delete windowName;
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
+	glDeleteVertexArrays(1, &m_VAO);
+	glDeleteBuffers(1, &m_VBO);
 }
 
 void GraphicsEngine::Initialize()
 {
 	InputManager &inputManager = InputManager::GetInstance();
-
 	inputManager.Initialize(&m_camera);
 
 	glfwInit();
@@ -66,15 +65,15 @@ void GraphicsEngine::Render()
 	view = glm::translate(view, negativeCameraPosition);
 
 	for (unsigned int i = 0; i < m_objectHandles.size(); i++) {
-		if (m_objectHandles[i]->HasRenderableComponent()) {
-			m_objectHandles[i]->GetRenderableComponent()->Render(projection, view);
-		}
+		m_renderer.Render(m_objectHandles[i], projection, view, cameraPos);
 	}
 }
 
 void GraphicsEngine::ClearScreen()
 {
-	glClearColor(222.0f/255.0f, 230.0f/255.0f, 1.0f, 1.0f);
+	//glClearColor(222.0f/255.0f, 230.0f/255.0f, 1.0f, 1.0f);
+	glClearColor(0,0,0, 1.0f);
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
@@ -90,7 +89,17 @@ void GraphicsEngine::AddObjectHandler(MayhemObjectHandle* handle)
 	m_objectHandles.push_back(handle);
 }
 
+void GraphicsEngine::LoadModel(MayhemObjectHandle* handle, std::string path)
+{
+	m_renderer.LoadModel(handle, path);
+}
+
+void GraphicsEngine::InitializeShader(MayhemObjectHandle* handle)
+{
+	m_renderer.InitializeShader(handle);
+}
+
 GLFWwindow* GraphicsEngine::GetWindow() const 
 {
-	return this->m_window;
+	return m_window;
 }

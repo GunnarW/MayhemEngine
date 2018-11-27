@@ -28,6 +28,11 @@ public:
 	bool SetCutOff(const float);
 	bool SetOuterCutOff(const float);
 
+	bool AddMesh(const Mesh);
+	bool AddTexture(const Texture);
+	bool SetDirectory(const std::string);
+	bool SetTransform(const glm::mat4);
+	bool SetShader(const Shader);
 
 	// Getters
 	bool IsEnabled() const;
@@ -45,6 +50,8 @@ public:
 	float GetCutOff() const;
 	float GetOuterCutOff() const;
 
+	std::vector<Mesh>* GetMeshes() const;
+	std::vector<Texture>* GetTextures() const;
 	std::string GetDirectory() const;
 	glm::mat4 GetTransform() const;
 	Shader* GetShader() const;
