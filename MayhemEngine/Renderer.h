@@ -16,6 +16,13 @@
 #include <vector>
 
 #include "MayhemObjectHandle.h"
+#include "DefaultObjectHandle.h"
+#include "PointLightObjectHandle.h"
+#include "DirectionLightObjectHandle.h"
+#include "SpotLightObjectHandle.h"
+
+#include "Shader.h"
+#include "MayhemGameHelper.h"
 
 class Renderer
 {
@@ -23,11 +30,10 @@ public:
 	Renderer();
 	~Renderer();
 
-	void InitializeShader(MayhemObjectHandle* handle);
 	void Draw();
 	void Update(double dt);
-	void Render(MayhemObjectHandle* handle, const glm::mat4 projection, const glm::mat4 view, const glm::vec3);
-
+	void RenderDefault(const DefaultObjectHandle* handle, Shader* shader);
+	void RenderPointLight(const PointLightObjectHandle* handle, const unsigned _int32 index, Shader* shader);
 	void SetPosition(glm::vec3*);
 	void LoadModel(MayhemObjectHandle*, std::string);
 

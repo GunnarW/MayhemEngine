@@ -10,30 +10,28 @@ Renderer::~Renderer()
 {
 }
 
-void Renderer::InitializeShader(MayhemObjectHandle* handle)
-{
-	handle->GetShader()->Initialize("Shaders/stdShader.vs", "Shaders/stdShader.fs");
-}
-
 void Renderer::Update(double dt) {
 
 }
 
-void Renderer::Render(MayhemObjectHandle* handle, const glm::mat4 projection, const glm::mat4 view, const glm::vec3 cameraPosition) {
-	Shader* shader = handle->GetShader();
-	shader->SetMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
-	shader->SetMat4("view", view);
-	
+void Renderer::RenderDefault(const DefaultObjectHandle* handle, Shader* shader) {
 	shader->SetMat4("model", handle->GetTransform());
-	shader->SetVec3("cameraPosition", cameraPosition);
 
 	std::vector<Mesh>* meshes = handle->GetMeshes();
 	for (unsigned int i = 0; i < meshes->size(); i++)
 	{
 		meshes->at(i).Draw(shader);
 	}
+}
 
-	shader->Use();
+void Renderer::RenderPointLight(const PointLightObjectHandle* handle, const unsigned _int32 index, Shader* shader) {
+	shader->SetVec3(MGH::sprintf("pointLights[%d].position", index), handle->GetPosition());
+	shader->SetVec3(MGH::sprintf("pointLights[%d].ambient", index), handle->GetAmbient());
+	shader->SetVec3(MGH::sprintf("pointLights[%d].diffuse", index), handle->GetDiffuse());
+	shader->SetVec3(MGH::sprintf("pointLights[%d].specular", index), handle->GetSpecular());
+	shader->SetFloat(MGH::sprintf("pointLights[%d].constant", index), handle->GetConstant());
+	shader->SetFloat(MGH::sprintf("pointLights[%d].linear", index), handle->GetLinear());
+	shader->SetFloat(MGH::sprintf("pointLights[%d].quadratic", index), handle->GetQuadratic());
 }
 
 void Renderer::SetPosition(glm::vec3* position)

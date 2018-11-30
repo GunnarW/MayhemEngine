@@ -72,7 +72,6 @@ double Engine::GetDT()
 
 void Engine::CreateHandle()
 {
-	m_objectHandles.push_back(new MayhemObjectHandle(&objects, objects.CreateObject()));
 }
 
 void Engine::LoadGameObjects() {
@@ -85,28 +84,40 @@ void Engine::LoadGameObjects() {
 
 void Engine::LoadGameObject(ParsedObject object, int handlerIndex)
 {
-	CreateHandle();
+	if (object.type == "pointLight")
+	{
+		CreatePointLightObject(object, handlerIndex);
+
+	}
+	else if (object.type == "directionLight")
+	{
+		CreateDirectionLightObject(object, handlerIndex);
+
+	}
+	else if (object.type == "spotLight")
+	{
+		CreateSpotLightObject(object, handlerIndex);
+
+	}
+	else
+	{
+		CreateDefaultObject(object, handlerIndex);
+	}
 
 	m_graphicsEngine.AddObjectHandler(m_objectHandles[handlerIndex]);
-	m_graphicsEngine.LoadModel(m_objectHandles[handlerIndex], object.objectFile.c_str());
-	m_graphicsEngine.InitializeShader(m_objectHandles[handlerIndex]);
+	m_graphicsEngine.InitializeShader(m_objectHandles[handlerIndex], object.vs.c_str(), object.fs.c_str());
 
 	m_objectHandles[handlerIndex]->SetPosition(object.position);
 	m_objectHandles[handlerIndex]->SetTransform(glm::translate(m_objectHandles[handlerIndex]->GetTransform(), object.position));
 	m_objectHandles[handlerIndex]->SetTransform(glm::scale(m_objectHandles[handlerIndex]->GetTransform(), glm::vec3(0.2f, 0.2f, 0.2f)));
 
 	m_objectHandles[handlerIndex]->SetEnabled(object.enable);
-
-	m_objectHandles[handlerIndex]->SetDirection(object.direction);
+	
 	m_objectHandles[handlerIndex]->SetAmbient(object.ambient);
 	m_objectHandles[handlerIndex]->SetDiffuse(object.diffuse);
 	m_objectHandles[handlerIndex]->SetSpecular(object.specular);
 
-	m_objectHandles[handlerIndex]->SetConstant(object.constant);
-	m_objectHandles[handlerIndex]->SetLinear(object.linear);
-	m_objectHandles[handlerIndex]->SetQuadratic(object.quadratic);
-	m_objectHandles[handlerIndex]->SetCutOff(object.cutOff);
-	m_objectHandles[handlerIndex]->SetOuterCutOff(object.outerCutOff);
+	m_objectHandles[handlerIndex]->SetDirection(object.direction);
 }
 
 void Engine::UpdateHandlers()
@@ -115,4 +126,43 @@ void Engine::UpdateHandlers()
 	{
 		m_objectHandles[i]->Update(m_DT);
 	}
+}
+
+void Engine::CreateDefaultObject(ParsedObject object, int handlerIndex)
+{
+	DefaultObjectHandle* mayhemObject = new DefaultObjectHandle(&objects, objects.CreateObject());
+	m_objectHandles.push_back(mayhemObject);
+	m_graphicsEngine.AddDefaultObjectHandler(mayhemObject);
+	m_graphicsEngine.LoadModel(m_objectHandles[handlerIndex], object.objectFile.c_str());
+}
+
+void Engine::CreatePointLightObject(ParsedObject object, int handlerIndex)
+{
+	PointLightObjectHandle* mayhemObject = new PointLightObjectHandle(&objects, objects.CreateObject());
+	m_objectHandles.push_back(mayhemObject);
+	m_graphicsEngine.AddPointLightObjectHandler(mayhemObject);
+}
+
+void Engine::CreateDirectionLightObject(ParsedObject object, int handlerIndex)
+{
+	DirectionLightObjectHandle* mayhemObject = new DirectionLightObjectHandle(&objects, objects.CreateObject());
+	m_objectHandles.push_back(mayhemObject);
+	m_graphicsEngine.AddDirectionLightObjectHandler(mayhemObject);
+
+	m_objectHandles[handlerIndex]->SetConstant(object.constant);
+	m_objectHandles[handlerIndex]->SetLinear(object.linear);
+	m_objectHandles[handlerIndex]->SetQuadratic(object.quadratic);
+}
+
+void Engine::CreateSpotLightObject(ParsedObject object, int handlerIndex)
+{
+	SpotLightObjectHandle* mayhemObject = new SpotLightObjectHandle(&objects, objects.CreateObject());
+	m_objectHandles.push_back(mayhemObject);
+	m_graphicsEngine.AddSpotLightObjectHandler(mayhemObject);
+
+	m_objectHandles[handlerIndex]->SetConstant(object.constant);
+	m_objectHandles[handlerIndex]->SetLinear(object.linear);
+	m_objectHandles[handlerIndex]->SetQuadratic(object.quadratic);
+	m_objectHandles[handlerIndex]->SetCutOff(object.cutOff);
+	m_objectHandles[handlerIndex]->SetOuterCutOff(object.outerCutOff);
 }

@@ -8,8 +8,10 @@
 #include <glm/glm.hpp>
 
 
-struct ParsedObject {
-	std::string renderable;
+
+struct ParsedObject 
+{
+	std::string type;
 
 	glm::vec3 position;
 	glm::vec3 direction;
@@ -19,6 +21,8 @@ struct ParsedObject {
 
 	std::string texture;
 	std::string objectFile;
+	std::string vs;
+	std::string fs;
 	
 	bool enable;
 

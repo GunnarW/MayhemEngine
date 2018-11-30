@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="glad.c" />
-    <ClCompile Include="MayhemObjectHandle.cpp" />
     <ClCompile Include="MayhemObjects.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="stb_image.cpp" />
@@ -16,22 +15,33 @@
     <ClCompile Include="ScriptManager.cpp" />
     <ClCompile Include="SceneLoader.cpp" />
     <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="Light.cpp">
-      <Filter>GraphicsEngine</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>GraphicsEngine</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>GraphicsEngine</Filter>
     </ClCompile>
-    <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Renderer.cpp">
       <Filter>GraphicsEngine</Filter>
     </ClCompile>
+    <ClCompile Include="MayhemObjectHandle.cpp">
+      <Filter>Handles</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultObjectHandle.cpp">
+      <Filter>Handles</Filter>
+    </ClCompile>
+    <ClCompile Include="PointLightObjectHandle.cpp">
+      <Filter>Handles</Filter>
+    </ClCompile>
+    <ClCompile Include="SpotLightObjectHandle.cpp">
+      <Filter>Handles</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectionLightObjectHandle.cpp">
+      <Filter>Handles</Filter>
+    </ClCompile>
+    <ClCompile Include="MayhemGameHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MayhemObjectHandle.h" />
     <ClInclude Include="MayhemObjects.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="GraphicsEngine.h">
@@ -53,19 +63,31 @@
     <ClInclude Include="ScriptManager.h" />
     <ClInclude Include="SceneLoader.h" />
     <ClInclude Include="InputManager.h" />
-    <ClInclude Include="Light.h">
-      <Filter>GraphicsEngine</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>GraphicsEngine</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>GraphicsEngine</Filter>
     </ClInclude>
-    <ClInclude Include="PointLight.h" />
     <ClInclude Include="Renderer.h">
       <Filter>GraphicsEngine</Filter>
     </ClInclude>
+    <ClInclude Include="MayhemObjectHandle.h">
+      <Filter>Handles</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultObjectHandle.h">
+      <Filter>Handles</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLightObjectHandle.h">
+      <Filter>Handles</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLightObjectHandle.h">
+      <Filter>Handles</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionLightObjectHandle.h">
+      <Filter>Handles</Filter>
+    </ClInclude>
+    <ClInclude Include="MayhemGameHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GraphicsEngine">
@@ -82,6 +104,9 @@
     </Filter>
     <Filter Include="Json">
       <UniqueIdentifier>{da7fdfcb-4f57-4b82-9a83-42982018a651}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Handles">
+      <UniqueIdentifier>{81b776dc-72d3-4af1-bf5c-1e71f3f8b46b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -49,39 +49,6 @@ bool MayhemObjectHandle::SetRotation(const glm::quat rot) {
 	return false;
 }
 
-
-bool MayhemObjectHandle::SetDirection(const glm::vec3 dir) {
-	if (ObjectExists()) {
-		m_mayhemObjects->m_direction[m_handleIndex] = dir;
-		return true;
-	}
-	return false;
-}
-
-bool MayhemObjectHandle::SetAmbient(const glm::vec3 amb) {
-	if (ObjectExists()) {
-		m_mayhemObjects->m_ambient[m_handleIndex] = amb;
-		return true;
-	}
-	return false;
-}
-
-bool MayhemObjectHandle::SetDiffuse(const glm::vec3 diff) {
-	if (ObjectExists()) {
-		m_mayhemObjects->m_diffuse[m_handleIndex] = diff;
-		return true;
-	}
-	return false;
-}
-
-bool MayhemObjectHandle::SetSpecular(const glm::vec3 spec) {
-	if (ObjectExists()) {
-		m_mayhemObjects->m_specular[m_handleIndex] = spec;
-		return true;
-	}
-	return false;
-}
-
 bool MayhemObjectHandle::SetConstant(const float constant) {
 	if (ObjectExists()) {
 		m_mayhemObjects->m_constant[m_handleIndex] = constant;
@@ -118,32 +85,6 @@ bool MayhemObjectHandle::SetOuterCutOff(const float cut) {
 	return false;
 }
 
-bool MayhemObjectHandle::AddMesh(const Mesh mesh)
-{
-	if (ObjectExists()) {
-		m_mayhemObjects->m_meshes[m_handleIndex].push_back(mesh);
-		return true;
-	}
-	return false;
-}
-bool MayhemObjectHandle::AddTexture(const Texture texture)
-{
-	if (ObjectExists()) {
-		m_mayhemObjects->m_texturesLoaded[m_handleIndex].push_back(texture);
-
-		return true;
-	}
-	return false;
-}
-bool MayhemObjectHandle::SetDirectory(const std::string directory)
-{
-	if (ObjectExists()) {
-		m_mayhemObjects->m_directories[m_handleIndex] = directory;
-		return true;
-	}
-	return false;
-}
-
 bool MayhemObjectHandle::SetTransform(const glm::mat4 transform)
 {
 	if (ObjectExists()) {
@@ -161,6 +102,39 @@ bool MayhemObjectHandle::SetShader(const Shader shader)
 	}
 	return false;
 }
+
+bool MayhemObjectHandle::SetDirection(const glm::vec3 dir) {
+	if (ObjectExists()) {
+		m_mayhemObjects->m_direction[m_handleIndex] = dir;
+		return true;
+	}
+	return false;
+}
+
+bool MayhemObjectHandle::SetAmbient(const glm::vec3 amb) {
+	if (ObjectExists()) {
+		m_mayhemObjects->m_ambient[m_handleIndex] = amb;
+		return true;
+	}
+	return false;
+}
+
+bool MayhemObjectHandle::SetDiffuse(const glm::vec3 diff) {
+	if (ObjectExists()) {
+		m_mayhemObjects->m_diffuse[m_handleIndex] = diff;
+		return true;
+	}
+	return false;
+}
+
+bool MayhemObjectHandle::SetSpecular(const glm::vec3 spec) {
+	if (ObjectExists()) {
+		m_mayhemObjects->m_specular[m_handleIndex] = spec;
+		return true;
+	}
+	return false;
+}
+
 ///////////////////// Getters ///////////////////////////////////////////////////
 
 bool MayhemObjectHandle::IsEnabled() const 
@@ -184,29 +158,10 @@ glm::quat MayhemObjectHandle::GetRotation() const
 	}
 }
 
-
 glm::vec3 MayhemObjectHandle::GetDirection() const 
 {
 	if (ObjectExists()) {
 		return m_mayhemObjects->m_direction[m_handleIndex];
-	}
-}
-glm::vec3 MayhemObjectHandle::GetAmbient() const 
-{
-	if (ObjectExists()) {
-		return m_mayhemObjects->m_ambient[m_handleIndex];
-	}
-}
-glm::vec3 MayhemObjectHandle::GetDiffuse() const 
-{
-	if (ObjectExists()) {
-		return m_mayhemObjects->m_diffuse[m_handleIndex];
-	}
-}
-glm::vec3 MayhemObjectHandle::GetSpecular() const 
-{
-	if (ObjectExists()) {
-		return m_mayhemObjects->m_specular[m_handleIndex];
 	}
 }
 
@@ -241,27 +196,6 @@ float MayhemObjectHandle::GetOuterCutOff() const
 	}
 }
 
-std::vector<Mesh>* MayhemObjectHandle::GetMeshes() const
-{
-	if (ObjectExists()) {
-		return &m_mayhemObjects->m_meshes[m_handleIndex];
-	}
-}
-
-std::vector<Texture>* MayhemObjectHandle::GetTextures() const
-{
-	if (ObjectExists()) {
-		return &m_mayhemObjects->m_texturesLoaded[m_handleIndex];
-	}
-}
-
-std::string MayhemObjectHandle::GetDirectory() const
-{
-	if (ObjectExists()) {
-		return m_mayhemObjects->m_directories[m_handleIndex];
-	}
-}
-
 glm::mat4 MayhemObjectHandle::GetTransform() const
 {
 	if (ObjectExists()) {
@@ -273,5 +207,24 @@ Shader* MayhemObjectHandle::GetShader() const
 {
 	if (ObjectExists()) {
 		return &m_mayhemObjects->m_shaders[m_handleIndex];
+	}
+}
+
+glm::vec3 MayhemObjectHandle::GetAmbient() const
+{
+	if (ObjectExists()) {
+		return m_mayhemObjects->m_ambient[m_handleIndex];
+	}
+}
+glm::vec3 MayhemObjectHandle::GetDiffuse() const
+{
+	if (ObjectExists()) {
+		return m_mayhemObjects->m_diffuse[m_handleIndex];
+	}
+}
+glm::vec3 MayhemObjectHandle::GetSpecular() const
+{
+	if (ObjectExists()) {
+		return m_mayhemObjects->m_specular[m_handleIndex];
 	}
 }

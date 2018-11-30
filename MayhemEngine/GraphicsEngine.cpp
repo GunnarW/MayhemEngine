@@ -46,6 +46,8 @@ void GraphicsEngine::Initialize()
 	// configure global opengl state
 	// -----------------------------
 	glEnable(GL_DEPTH_TEST);
+
+	m_shader.Initialize("Shaders/stdShader.vs", "Shaders/stdShader.fs");
 }
 
 void GraphicsEngine::Update(double DT) 
@@ -64,9 +66,24 @@ void GraphicsEngine::Render()
 	glm::vec3 negativeCameraPosition = glm::vec3(-cameraPos.x, -cameraPos.y, -cameraPos.z);
 	view = glm::translate(view, negativeCameraPosition);
 
-	for (unsigned int i = 0; i < m_objectHandles.size(); i++) {
-		m_renderer.Render(m_objectHandles[i], projection, view, cameraPos);
+
+	m_shader.SetMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+	m_shader.SetMat4("view", view);
+
+	m_shader.SetVec3("cameraPosition", cameraPos);
+
+	m_shader.SetInt("numberPointLights", m_pointLightObjectHandles.size());
+	
+	for (unsigned _int32 i = 0; i < m_pointLightObjectHandles.size(); i++) {
+		m_renderer.RenderPointLight(m_pointLightObjectHandles[i], i, &m_shader);
 	}
+
+
+	for (unsigned _int32 i = 0; i < m_defaultObjectHandles.size(); i++) {
+		m_renderer.RenderDefault(m_defaultObjectHandles[i], &m_shader);
+	}
+
+	m_shader.Use();
 }
 
 void GraphicsEngine::ClearScreen()
@@ -94,12 +111,34 @@ void GraphicsEngine::LoadModel(MayhemObjectHandle* handle, std::string path)
 	m_renderer.LoadModel(handle, path);
 }
 
-void GraphicsEngine::InitializeShader(MayhemObjectHandle* handle)
+void GraphicsEngine::InitializeShader(MayhemObjectHandle* handle, const char* vs, const char* fs)
 {
-	m_renderer.InitializeShader(handle);
 }
 
 GLFWwindow* GraphicsEngine::GetWindow() const 
 {
 	return m_window;
+}
+
+void GraphicsEngine::AddDefaultObjectHandler(DefaultObjectHandle* handle)
+{
+	m_defaultObjectHandles.push_back(handle);
+}
+
+void GraphicsEngine::AddPointLightObjectHandler(PointLightObjectHandle* handle)
+{
+	m_pointLightObjectHandles.push_back(handle);
+
+}
+
+void GraphicsEngine::AddDirectionLightObjectHandler(DirectionLightObjectHandle* handle)
+{
+	m_DirectionLightObjectHandles.push_back(handle);
+
+}
+
+void GraphicsEngine::AddSpotLightObjectHandler(SpotLightObjectHandle* handle)
+{
+	m_SpotLightObjectHandles.push_back(handle);
+
 }

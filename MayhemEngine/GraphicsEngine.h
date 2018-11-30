@@ -15,7 +15,7 @@
 #include "InputManager.h"
 #include "Renderer.h"
 
-//#include "GlobalHandleTable.h"
+#include "MayhemGameHelper.h"
 
 class GraphicsEngine
 {
@@ -29,7 +29,12 @@ public:
 
 	void AddObjectHandler(MayhemObjectHandle* handle);
 	void LoadModel(MayhemObjectHandle* handle, std::string path);
-	void InitializeShader(MayhemObjectHandle* handle);
+	void InitializeShader(MayhemObjectHandle* handle, const char* vs, const char* fs);
+
+	void AddDefaultObjectHandler(DefaultObjectHandle* handle);
+	void AddPointLightObjectHandler(PointLightObjectHandle* handle);
+	void AddDirectionLightObjectHandler(DirectionLightObjectHandle* handle);
+	void AddSpotLightObjectHandler(SpotLightObjectHandle* handle);
 
 	// getters
 	GLFWwindow* GetWindow() const;
@@ -48,6 +53,13 @@ private:
 	glm::mat4							m_projection;
 	unsigned int						m_height;
 	unsigned int						m_width;
-	std::vector<MayhemObjectHandle*>	m_objectHandles;
+
+	std::vector<MayhemObjectHandle*>			m_objectHandles;
+	std::vector<DefaultObjectHandle*>			m_defaultObjectHandles;
+	std::vector<PointLightObjectHandle*>		m_pointLightObjectHandles;
+	std::vector<DirectionLightObjectHandle*>	m_DirectionLightObjectHandles;
+	std::vector<SpotLightObjectHandle*>			m_SpotLightObjectHandles;
+
+	Shader m_shader;
 };
 

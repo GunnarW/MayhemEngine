@@ -10,7 +10,7 @@ Camera::Camera()
 	m_yaw = 0;
 	m_roll = 0;
 
-	m_moveSpeed = 4.0f;
+	m_moveSpeed = 6.0f;
 }
 
 

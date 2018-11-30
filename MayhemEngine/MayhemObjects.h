@@ -10,6 +10,7 @@
 
 static const _int32 MAX_GAME_OBJECTS = 1024;
 
+
 class MayhemObjects
 {
 public:
@@ -44,6 +45,7 @@ private:
 	glm::vec3	m_ambient[MAX_GAME_OBJECTS];
 	glm::vec3	m_diffuse[MAX_GAME_OBJECTS];
 	glm::vec3	m_specular[MAX_GAME_OBJECTS];
+	glm::vec3	m_lightColor[MAX_GAME_OBJECTS];
 
 	glm::quat	m_rotation[MAX_GAME_OBJECTS];
 	
@@ -56,6 +58,10 @@ private:
 	glm::mat4	m_transforms[MAX_GAME_OBJECTS];
 
 	Shader	m_shaders[MAX_GAME_OBJECTS];
-	
+
 	friend class MayhemObjectHandle;
+	friend class DefaultObjectHandle;
+	friend class PointLightObjectHandle;
+	friend class DirectionLightObjectHandle;
+	friend class SpotLightObjectHandle;
 };

@@ -34,6 +34,6 @@ protected:
 	std::vector<unsigned int> m_indices;
 	std::vector<Texture> m_textures;
 
-	unsigned int m_VAO, m_VBO, m_EBO;
+	unsigned int VAO, VBO, EBO;
 };
 

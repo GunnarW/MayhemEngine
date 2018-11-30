@@ -1,7 +1,7 @@
 {
     "objects": [
         {
-            "renderableType": "basic",
+            "renderableType": "default",
             "position": {
                 "x": 0.0,
                 "y": 0.0,
@@ -9,10 +9,12 @@
             },
             "enable": true,
             "texture": "Textures/CobbleStone.png",
-            "objectFile": "Assets/Models/Skeleton.obj"
+            "objectFile": "Assets/Models/Skeleton.obj",
+            "vertexShader": "Shaders/stdShader.vs",
+            "fragmentShader": "Shaders/stdShader.fs"
         },
         {
-            "renderableType": "basic",
+            "renderableType": "default",
             "position": {
                 "x": 8,
                 "y": 0.0,
@@ -20,10 +22,12 @@
             },
             "enable": true,
             "texture": "Textures/Dirt.png",
-            "objectFile": "Assets/Models/PottedFlowers.obj"
+            "objectFile": "Assets/Models/PottedFlowers.obj",
+            "vertexShader": "Shaders/stdShader.vs",
+            "fragmentShader": "Shaders/stdShader.fs"
         },
         {
-            "renderableType": "basic",
+            "renderableType": "default",
             "position": {
                 "x": -8,
                 "y": 0.0,
@@ -31,7 +35,37 @@
             },
             "enable": true,
             "texture": "Textures/Grass.png",
-            "objectFile": "Assets/Models/Character.obj"
+            "objectFile": "Assets/Models/Character.obj",
+            "vertexShader": "Shaders/stdShader.vs",
+            "fragmentShader": "Shaders/stdShader.fs"
+        },
+        {
+            "renderableType": "pointLight",
+            "position": {
+                "x": 0.0,
+                "y": 20.0,
+                "z": 20.0
+            },
+            "ambient": {
+                "x": 0.05,
+                "y": 0.05,
+                "z": 0.05
+            },
+            "diffuse": {
+                "x": 0.8,
+                "y": 0.8,
+                "z": 0.8
+            },
+            "specular": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "constant": 1.0,
+            "linear": 0.9,
+            "quadratic": 0.032,
+            "enable": true
         }
+
     ]
 }

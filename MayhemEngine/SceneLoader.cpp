@@ -43,10 +43,13 @@ void SceneLoader::ParseObject(nlohmann::json jsonObject)
 	std::cout << jsonObject << std::endl;
 	struct ParsedObject object;
 
-	object.renderable = LoadString(jsonObject["renderableType"]);
+	object.type = LoadString(jsonObject["renderableType"]);
+	
 	object.texture = LoadString(jsonObject["texture"]);
 	object.objectFile = LoadString(jsonObject["objectFile"]);
 	object.enable = LoadBool(jsonObject["enable"]);
+	object.vs = LoadString(jsonObject["vertexShader"]);
+	object.fs = LoadString(jsonObject["fragmentShader"]);
 	
 	object.position = LoadVec3(jsonObject["position"]);
 	object.direction = LoadVec3(jsonObject["direction"]);
@@ -68,7 +71,8 @@ glm::vec3 SceneLoader::LoadVec3(nlohmann::json jsonVec3)
 	if (jsonVec3 != nullptr)
 	{
 		return glm::vec3(jsonVec3["x"], jsonVec3["y"], jsonVec3["z"]);
-	}
+	} 
+	return glm::vec3(0.0, 0.0, 0.0);
 }
 
 std::string SceneLoader::LoadString(nlohmann::json jsonString)
@@ -77,6 +81,8 @@ std::string SceneLoader::LoadString(nlohmann::json jsonString)
 	{
 		return jsonString;
 	}
+
+	return "";
 }
 
 bool SceneLoader::LoadBool(nlohmann::json jsonBool)
@@ -85,6 +91,7 @@ bool SceneLoader::LoadBool(nlohmann::json jsonBool)
 	{
 		return bool(jsonBool);
 	}
+	return false;
 }
 
 float SceneLoader::LoadFloat(nlohmann::json jsonFloat)
@@ -93,4 +100,5 @@ float SceneLoader::LoadFloat(nlohmann::json jsonFloat)
 	{
 		return float(jsonFloat);
 	}
+	return 0.0;
 }

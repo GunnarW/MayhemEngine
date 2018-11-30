@@ -16,6 +16,10 @@
 #include "GraphicsEngine.h"
 #include "MayhemObjects.h"
 #include "MayhemObjectHandle.h"
+#include "DefaultObjectHandle.h"
+#include "PointLightObjectHandle.h"
+#include "DirectionLightObjectHandle.h"
+#include "SpotLightObjectHandle.h"
 
 
 class Engine
@@ -36,7 +40,10 @@ private:
 	void LoadGameObjects();
 	void LoadGameObject(ParsedObject, int);
 	void UpdateHandlers();
-
+	void CreateDefaultObject(ParsedObject, int);
+	void CreatePointLightObject(ParsedObject, int);
+	void CreateDirectionLightObject(ParsedObject, int);
+	void CreateSpotLightObject(ParsedObject, int);
 	
 	Engine *m_enginePtr = 0;
 	GLuint m_width;
