@@ -73,11 +73,20 @@ void GraphicsEngine::Render()
 	m_shader.SetVec3("cameraPosition", cameraPos);
 
 	m_shader.SetInt("numberPointLights", m_pointLightObjectHandles.size());
+	m_shader.SetInt("numberDirectionLights", m_directionLightObjectHandles.size());
+	m_shader.SetInt("numberSpotLights", m_spotLightObjectHandles.size());
 	
 	for (unsigned _int32 i = 0; i < m_pointLightObjectHandles.size(); i++) {
 		m_renderer.RenderPointLight(m_pointLightObjectHandles[i], i, &m_shader);
 	}
 
+	for (unsigned _int32 i = 0; i < m_directionLightObjectHandles.size(); i++) {
+		m_renderer.RenderDirectionLight(m_directionLightObjectHandles[i], i, &m_shader);
+	}
+
+	for (unsigned _int32 i = 0; i < m_spotLightObjectHandles.size(); i++) {
+		m_renderer.RenderSpotLight(m_spotLightObjectHandles[i], i, &m_shader);
+	}
 
 	for (unsigned _int32 i = 0; i < m_defaultObjectHandles.size(); i++) {
 		m_renderer.RenderDefault(m_defaultObjectHandles[i], &m_shader);
@@ -133,12 +142,12 @@ void GraphicsEngine::AddPointLightObjectHandler(PointLightObjectHandle* handle)
 
 void GraphicsEngine::AddDirectionLightObjectHandler(DirectionLightObjectHandle* handle)
 {
-	m_DirectionLightObjectHandles.push_back(handle);
+	m_directionLightObjectHandles.push_back(handle);
 
 }
 
 void GraphicsEngine::AddSpotLightObjectHandler(SpotLightObjectHandle* handle)
 {
-	m_SpotLightObjectHandles.push_back(handle);
+	m_spotLightObjectHandles.push_back(handle);
 
 }

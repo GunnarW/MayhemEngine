@@ -10,11 +10,13 @@ Renderer::~Renderer()
 {
 }
 
-void Renderer::Update(double dt) {
+void Renderer::Update(double dt) 
+{
 
 }
 
-void Renderer::RenderDefault(const DefaultObjectHandle* handle, Shader* shader) {
+void Renderer::RenderDefault(const DefaultObjectHandle* handle, Shader* shader) 
+{
 	shader->SetMat4("model", handle->GetTransform());
 
 	std::vector<Mesh>* meshes = handle->GetMeshes();
@@ -24,7 +26,8 @@ void Renderer::RenderDefault(const DefaultObjectHandle* handle, Shader* shader) 
 	}
 }
 
-void Renderer::RenderPointLight(const PointLightObjectHandle* handle, const unsigned _int32 index, Shader* shader) {
+void Renderer::RenderPointLight(const PointLightObjectHandle* handle, const unsigned _int32 index, Shader* shader)
+{
 	shader->SetVec3(MGH::sprintf("pointLights[%d].position", index), handle->GetPosition());
 	shader->SetVec3(MGH::sprintf("pointLights[%d].ambient", index), handle->GetAmbient());
 	shader->SetVec3(MGH::sprintf("pointLights[%d].diffuse", index), handle->GetDiffuse());
@@ -33,6 +36,29 @@ void Renderer::RenderPointLight(const PointLightObjectHandle* handle, const unsi
 	shader->SetFloat(MGH::sprintf("pointLights[%d].linear", index), handle->GetLinear());
 	shader->SetFloat(MGH::sprintf("pointLights[%d].quadratic", index), handle->GetQuadratic());
 }
+
+void Renderer::RenderDirectionLight(const DirectionLightObjectHandle* handle, const unsigned _int32 index, Shader* shader)
+{
+	shader->SetVec3(MGH::sprintf("directionLights[%d].direction", index), handle->GetDirection());
+	shader->SetVec3(MGH::sprintf("directionLights[%d].ambient", index), handle->GetAmbient());
+	shader->SetVec3(MGH::sprintf("directionLights[%d].diffuse", index), handle->GetDiffuse());
+	shader->SetVec3(MGH::sprintf("directionLights[%d].specular", index), handle->GetSpecular());
+}
+
+void Renderer::RenderSpotLight(const SpotLightObjectHandle* handle, const unsigned _int32 index, Shader* shader)
+{
+	shader->SetVec3(MGH::sprintf("spotLights[%d].position", index), handle->GetPosition());
+	shader->SetVec3(MGH::sprintf("spotLights[%d].direction", index), handle->GetDirection());
+	shader->SetVec3(MGH::sprintf("spotLights[%d].ambient", index), handle->GetAmbient());
+	shader->SetVec3(MGH::sprintf("spotLights[%d].diffuse", index), handle->GetDiffuse());
+	shader->SetVec3(MGH::sprintf("spotLights[%d].specular", index), handle->GetSpecular());
+	shader->SetFloat(MGH::sprintf("spotLights[%d].cutOff", index), glm::cos(glm::radians(handle->GetCutOff())));
+	shader->SetFloat(MGH::sprintf("spotLights[%d].outerCutOff", index), glm::cos(glm::radians(handle->GetOuterCutOff())));
+	shader->SetFloat(MGH::sprintf("spotLights[%d].constant", index), handle->GetConstant());
+	shader->SetFloat(MGH::sprintf("spotLights[%d].linear", index), handle->GetLinear());
+	shader->SetFloat(MGH::sprintf("spotLights[%d].quadratic", index), handle->GetQuadratic());
+}
+
 
 void Renderer::SetPosition(glm::vec3* position)
 {

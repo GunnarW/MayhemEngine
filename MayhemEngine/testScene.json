@@ -9,9 +9,7 @@
             },
             "enable": true,
             "texture": "Textures/CobbleStone.png",
-            "objectFile": "Assets/Models/Skeleton.obj",
-            "vertexShader": "Shaders/stdShader.vs",
-            "fragmentShader": "Shaders/stdShader.fs"
+            "objectFile": "Assets/Models/Skeleton.obj"
         },
         {
             "renderableType": "default",
@@ -22,9 +20,7 @@
             },
             "enable": true,
             "texture": "Textures/Dirt.png",
-            "objectFile": "Assets/Models/PottedFlowers.obj",
-            "vertexShader": "Shaders/stdShader.vs",
-            "fragmentShader": "Shaders/stdShader.fs"
+            "objectFile": "Assets/Models/PottedFlowers.obj"
         },
         {
             "renderableType": "default",
@@ -35,16 +31,14 @@
             },
             "enable": true,
             "texture": "Textures/Grass.png",
-            "objectFile": "Assets/Models/Character.obj",
-            "vertexShader": "Shaders/stdShader.vs",
-            "fragmentShader": "Shaders/stdShader.fs"
+            "objectFile": "Assets/Models/Character.obj"
         },
         {
             "renderableType": "pointLight",
             "position": {
                 "x": 0.0,
-                "y": 20.0,
-                "z": 20.0
+                "y": 5.0,
+                "z": 5.0
             },
             "ambient": {
                 "x": 0.05,
@@ -62,10 +56,67 @@
                 "z": 1.0
             },
             "constant": 1.0,
-            "linear": 0.9,
+            "linear": 0.09,
             "quadratic": 0.032,
             "enable": true
+        },
+        {
+            "renderableType": "directionLight",
+            "direction": {
+                "x": 0.0,
+                "y": 0.00,
+                "z": 1.00
+            },
+            "ambient": {
+                "x": 0.05,
+                "y": 0.05,
+                "z": 0.05
+            },
+            "diffuse": {
+                "x": 0.8,
+                "y": 0.8,
+                "z": 0.8
+            },
+            "specular": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "enable": true
+        },
+        {
+            "renderableType": "spotLight",
+            "position": {
+                "x": -8.0,
+                "y": 5.0,
+                "z": 10.0
+            },
+            "direction": {
+                "x": 0.0,
+                "y": 0.00,
+                "z": -1.00
+            },
+            "ambient": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "diffuse": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "specular": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "constant": 1.0,
+            "linear": 0.09,
+            "quadratic": 0.032,
+            "cutOff": 12.5,
+            "outerCutOff": 15.0,
+            "enable": true
         }
-
     ]
 }

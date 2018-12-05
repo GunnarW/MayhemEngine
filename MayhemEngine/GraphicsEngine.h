@@ -20,7 +20,7 @@
 class GraphicsEngine
 {
 public:
-	GraphicsEngine(const unsigned int width = 800, const unsigned int height = 600, char* windowName = "Mayhem Engine");
+	GraphicsEngine(const unsigned int width = 2048, const unsigned int height = 1080, char* windowName = "Mayhem Engine");
 	~GraphicsEngine();
 	void Initialize();
 	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -57,8 +57,8 @@ private:
 	std::vector<MayhemObjectHandle*>			m_objectHandles;
 	std::vector<DefaultObjectHandle*>			m_defaultObjectHandles;
 	std::vector<PointLightObjectHandle*>		m_pointLightObjectHandles;
-	std::vector<DirectionLightObjectHandle*>	m_DirectionLightObjectHandles;
-	std::vector<SpotLightObjectHandle*>			m_SpotLightObjectHandles;
+	std::vector<DirectionLightObjectHandle*>	m_directionLightObjectHandles;
+	std::vector<SpotLightObjectHandle*>			m_spotLightObjectHandles;
 
 	Shader m_shader;
 };

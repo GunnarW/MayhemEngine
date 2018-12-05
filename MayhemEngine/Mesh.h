@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "shader.h"
+#include "MayhemGameHelper.h"
 
 struct Vertex {
 	glm::vec3 Position;

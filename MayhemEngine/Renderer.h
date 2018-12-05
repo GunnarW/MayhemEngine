@@ -34,6 +34,8 @@ public:
 	void Update(double dt);
 	void RenderDefault(const DefaultObjectHandle* handle, Shader* shader);
 	void RenderPointLight(const PointLightObjectHandle* handle, const unsigned _int32 index, Shader* shader);
+	void RenderDirectionLight(const DirectionLightObjectHandle* handle, const unsigned _int32 index, Shader* shader);
+	void RenderSpotLight(const SpotLightObjectHandle* handle, const unsigned _int32 index, Shader* shader);
 	void SetPosition(glm::vec3*);
 	void LoadModel(MayhemObjectHandle*, std::string);
 
