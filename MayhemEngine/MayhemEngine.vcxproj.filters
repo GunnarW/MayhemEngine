@@ -40,6 +40,10 @@
       <Filter>Handles</Filter>
     </ClCompile>
     <ClCompile Include="MayhemGameHelper.cpp" />
+    <ClCompile Include="TerrainGenerator.cpp" />
+    <ClCompile Include="TerrainObjectHandle.cpp">
+      <Filter>Handles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MayhemObjects.h" />
@@ -88,6 +92,10 @@
       <Filter>Handles</Filter>
     </ClInclude>
     <ClInclude Include="MayhemGameHelper.h" />
+    <ClInclude Include="TerrainGenerator.h" />
+    <ClInclude Include="TerrainObjectHandle.h">
+      <Filter>Handles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GraphicsEngine">

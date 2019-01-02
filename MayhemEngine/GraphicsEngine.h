@@ -16,6 +16,7 @@
 #include "Renderer.h"
 
 #include "MayhemGameHelper.h"
+#include "TerrainGenerator.h"
 
 class GraphicsEngine
 {
@@ -29,12 +30,15 @@ public:
 
 	void AddObjectHandler(MayhemObjectHandle* handle);
 	void LoadModel(MayhemObjectHandle* handle, std::string path);
+	void GenerateTerrain(TerrainObjectHandle* handle);
+
 	void InitializeShader(MayhemObjectHandle* handle, const char* vs, const char* fs);
 
 	void AddDefaultObjectHandler(DefaultObjectHandle* handle);
 	void AddPointLightObjectHandler(PointLightObjectHandle* handle);
 	void AddDirectionLightObjectHandler(DirectionLightObjectHandle* handle);
 	void AddSpotLightObjectHandler(SpotLightObjectHandle* handle);
+	void AddTerrainObjectHandler(TerrainObjectHandle *handle);
 
 	// getters
 	GLFWwindow* GetWindow() const;
@@ -45,10 +49,12 @@ private:
 	char* windowName;
 	GLFWwindow* m_window;
 	Renderer	m_renderer;
+	TerrainGenerator m_terrainGenerator;
+
 	Camera								m_camera;
 	GLuint								m_VBO;
 	GLuint								m_VAO;
-	Shader*								standardShader;
+	Shader*								m_standardShader;
 	glm::mat4							m_view;
 	glm::mat4							m_projection;
 	unsigned int						m_height;
@@ -59,7 +65,9 @@ private:
 	std::vector<PointLightObjectHandle*>		m_pointLightObjectHandles;
 	std::vector<DirectionLightObjectHandle*>	m_directionLightObjectHandles;
 	std::vector<SpotLightObjectHandle*>			m_spotLightObjectHandles;
+	std::vector<TerrainObjectHandle*>			m_terrainObjectHandles;
 
 	Shader m_shader;
+	Shader m_terrainShader;
 };
 

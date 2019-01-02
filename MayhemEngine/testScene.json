@@ -18,7 +18,7 @@
                 "y": 0.0,
                 "z": 0.0
             },
-            "enable": true,
+            "enable": false,
             "texture": "Textures/Dirt.png",
             "objectFile": "Assets/Models/PottedFlowers.obj"
         },
@@ -37,8 +37,8 @@
             "renderableType": "pointLight",
             "position": {
                 "x": 0.0,
-                "y": 5.0,
-                "z": 5.0
+                "y": 10.0,
+                "z": 0.0
             },
             "ambient": {
                 "x": 0.05,
@@ -61,16 +61,16 @@
             "enable": true
         },
         {
-            "renderableType": "directionLight",
-            "direction": {
-                "x": 0.0,
-                "y": 0.00,
-                "z": 1.00
+            "renderableType": "pointLight",
+            "position": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
             },
             "ambient": {
-                "x": 0.05,
-                "y": 0.05,
-                "z": 0.05
+                "x": 0.6,
+                "y": 0.6,
+                "z": 0.6
             },
             "diffuse": {
                 "x": 0.8,
@@ -82,19 +82,48 @@
                 "y": 1.0,
                 "z": 1.0
             },
+            "constant": 1.0,
+            "linear": 0.09,
+            "quadratic": 0.032,
             "enable": true
         },
         {
+            "renderableType": "directionLight",
+            "direction": {
+                "x": 0.5,
+                "y": -0.10,
+                "z": 1.00
+            },
+            "ambient": {
+                "x": 0.1,
+                "y": 0.1,
+                "z": 0.1
+            },
+            "diffuse": {
+                "x": 0.8,
+                "y": 0.8,
+                "z": 0.8
+            },
+            "specular": {
+                "x": 0.5,
+                "y": 0.5,
+                "z": 0.5
+            },
+            "enable": true
+        },
+
+
+        {
             "renderableType": "spotLight",
             "position": {
-                "x": -8.0,
-                "y": 5.0,
-                "z": 10.0
+                "x": 0,
+                "y": 10.0,
+                "z": 25.0
             },
             "direction": {
                 "x": 0.0,
-                "y": 0.00,
-                "z": -1.00
+                "y": -1,
+                "z": 0.0
             },
             "ambient": {
                 "x": 0.0,
@@ -117,6 +146,24 @@
             "cutOff": 12.5,
             "outerCutOff": 15.0,
             "enable": true
+        },
+        {
+            "renderableType": "terrain",
+            "position": {
+                "x": -1000.0,
+                "y": 0.0,
+                "z": -1000.0
+            },
+            "enable": true,
+            "texture": "Grass.png",
+            "slopeTexture": "Dirt.png",
+            "heightmap": "Textures/simpleMap.jpg",
+            "altitudeScale": 300,
+            "gridSize": {
+                "x": 2000,
+                "y": 2000
+            },
+            "vertexCount":  524
         }
     ]
 }

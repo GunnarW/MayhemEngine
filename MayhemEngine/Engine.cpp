@@ -87,17 +87,18 @@ void Engine::LoadGameObject(ParsedObject object, int handlerIndex)
 	if (object.type == "pointLight")
 	{
 		CreatePointLightObject(object, handlerIndex);
-
 	}
 	else if (object.type == "directionLight")
 	{
 		CreateDirectionLightObject(object, handlerIndex);
-
 	}
 	else if (object.type == "spotLight")
 	{
 		CreateSpotLightObject(object, handlerIndex);
-
+	}
+	else if (object.type == "terrain")
+	{
+		CreateTerrainObject(object, handlerIndex);
 	}
 	else
 	{
@@ -109,7 +110,7 @@ void Engine::LoadGameObject(ParsedObject object, int handlerIndex)
 
 	m_objectHandles[handlerIndex]->SetPosition(object.position);
 	m_objectHandles[handlerIndex]->SetTransform(glm::translate(m_objectHandles[handlerIndex]->GetTransform(), object.position));
-	m_objectHandles[handlerIndex]->SetTransform(glm::scale(m_objectHandles[handlerIndex]->GetTransform(), glm::vec3(0.2f, 0.2f, 0.2f)));
+	//m_objectHandles[handlerIndex]->SetTransform(glm::scale(m_objectHandles[handlerIndex]->GetTransform(), glm::vec3(1.0f, 1.0f, 1.0f)));
 
 	m_objectHandles[handlerIndex]->SetEnabled(object.enable);
 	
@@ -165,4 +166,20 @@ void Engine::CreateSpotLightObject(ParsedObject object, int handlerIndex)
 	m_objectHandles[handlerIndex]->SetQuadratic(object.quadratic);
 	m_objectHandles[handlerIndex]->SetCutOff(object.cutOff);
 	m_objectHandles[handlerIndex]->SetOuterCutOff(object.outerCutOff);
+}
+
+void Engine::CreateTerrainObject(ParsedObject object, int handlerIndex)
+{
+	TerrainObjectHandle* mayhemObject = new TerrainObjectHandle(&objects, objects.CreateObject());
+	m_objectHandles.push_back(mayhemObject);
+	m_graphicsEngine.AddTerrainObjectHandler(mayhemObject);
+
+	mayhemObject->SetGridSize(object.gridSize);
+	mayhemObject->SetAltitudeScale(object.altitudeScale);
+	mayhemObject->AddTexturePath(object.texture);
+	mayhemObject->AddTexturePath(object.slopeTexture);
+	mayhemObject->AddTexturePath(object.heightmap);
+	mayhemObject->SetVertexCount(object.vertexCount);
+
+	m_graphicsEngine.GenerateTerrain(mayhemObject);
 }

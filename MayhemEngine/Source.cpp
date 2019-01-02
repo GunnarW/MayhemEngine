@@ -3,7 +3,7 @@
 #include "Engine.h"
 
 // The MAIN function, from here we start the application and run the game loop
-int main()
+int main(int, char** argv)
 {
 	// Setup new engine
 	Engine* engine = new Engine();

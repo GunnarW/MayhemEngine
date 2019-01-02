@@ -10,7 +10,6 @@ struct Material
     sampler2D texture_specular;
     sampler2D texture_slope;
     float shininess;
-    bool hasSlope;
 };
 
 struct PointLight
@@ -119,7 +118,7 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPosition, vec3 viewD
 
     vec3 downDirection = vec3(0.0, -1.0, 0.0);
     float slope = dot(normal, downDirection);
-    if (material.hasSlope && (slope > maxSlope || slope < -maxSlope))
+    if ((slope > maxSlope || slope < -maxSlope))
     {
         ambient = light.ambient * vec3(texture(material.texture_slope, TexCoords));
         diffuse = light.diffuse * diff * vec3(texture(material.texture_slope, TexCoords));
@@ -154,7 +153,7 @@ vec3 CalcDirectionLight(DirectionLight light, vec3 normal, vec3 viewDirection)
 
     vec3 downDirection = vec3(0.0, -1.0, 0.0);
     float slope = dot(normal, downDirection);
-    if (material.hasSlope && (slope < maxSlope && slope > -maxSlope))
+    if ((slope < maxSlope && slope > -maxSlope))
     {
         ambient = light.ambient * vec3(texture(material.texture_slope, TexCoords));
         diffuse = light.diffuse * diff * vec3(texture(material.texture_slope, TexCoords));
@@ -192,7 +191,7 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPosition, vec3 viewDir
 
     vec3 downDirection = vec3(0.0, -1.0, 0.0);
     float slope = dot(normal, downDirection);
-    if (material.hasSlope && (slope > maxSlope || slope < -maxSlope))
+    if ((slope > maxSlope || slope < -maxSlope))
     {
         ambient = light.ambient * vec3(texture(material.texture_slope, TexCoords));
         diffuse = light.diffuse * diff * vec3(texture(material.texture_slope, TexCoords));

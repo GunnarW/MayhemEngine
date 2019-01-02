@@ -51,6 +51,7 @@ void Mesh::Draw(Shader* shader)
 {
 	unsigned int diffuseNr = 1;
 	unsigned int specularNr = 1;
+	shader->SetBool("material.hasSlope", false);
 	for (unsigned int i = 0; i < m_textures.size(); i++)
 	{
 		glActiveTexture(GL_TEXTURE0 + i);
@@ -62,8 +63,12 @@ void Mesh::Draw(Shader* shader)
 		else if (name == "texture_specular")
 			number = std::to_string(specularNr++);
 
-		shader->SetFloat(MGH::sprintf("material.%s", name), i);
+		glUniform1i(glGetUniformLocation(shader->ID, ("material." + name).c_str()), i);
 		glBindTexture(GL_TEXTURE_2D, m_textures[i].id);
+		if (name == "texture_slope")
+		{
+			shader->SetBool("material.hasSlope", true);
+		}
 	}
 	glActiveTexture(GL_TEXTURE0);
 

@@ -50,6 +50,10 @@ void SceneLoader::ParseObject(nlohmann::json jsonObject)
 	object.enable = LoadBool(jsonObject["enable"]);
 	object.vs = LoadString(jsonObject["vertexShader"]);
 	object.fs = LoadString(jsonObject["fragmentShader"]);
+	object.heightmap = LoadString(jsonObject["heightmap"]);
+	object.slopeTexture = LoadString(jsonObject["slopeTexture"]);
+
+	object.gridSize = LoadVec2(jsonObject["gridSize"]);
 	
 	object.position = LoadVec3(jsonObject["position"]);
 	object.direction = LoadVec3(jsonObject["direction"]);
@@ -62,6 +66,9 @@ void SceneLoader::ParseObject(nlohmann::json jsonObject)
 	object.quadratic = LoadFloat(jsonObject["quadratic"]);
 	object.cutOff = LoadFloat(jsonObject["cutOff"]);
 	object.outerCutOff = LoadFloat(jsonObject["outerCutoff"]);
+	object.altitudeScale = LoadFloat(jsonObject["altitudeScale"]);
+
+	object.vertexCount = LoadInt(jsonObject["vertexCount"]);
 
 	m_parsedObjects.push_back(object);
 }
@@ -73,6 +80,15 @@ glm::vec3 SceneLoader::LoadVec3(nlohmann::json jsonVec3)
 		return glm::vec3(jsonVec3["x"], jsonVec3["y"], jsonVec3["z"]);
 	} 
 	return glm::vec3(0.0, 0.0, 0.0);
+}
+
+glm::vec2 SceneLoader::LoadVec2(nlohmann::json jsonVec2)
+{
+	if (jsonVec2 != nullptr)
+	{
+		return glm::vec2(jsonVec2["x"], jsonVec2["y"]);
+	}
+	return glm::vec2(0.0, 0.0);
 }
 
 std::string SceneLoader::LoadString(nlohmann::json jsonString)
@@ -101,4 +117,13 @@ float SceneLoader::LoadFloat(nlohmann::json jsonFloat)
 		return float(jsonFloat);
 	}
 	return 0.0;
+}
+
+int SceneLoader::LoadInt(nlohmann::json jsonInt)
+{
+	if (jsonInt != nullptr)
+	{
+		return int(jsonInt);
+	}
+	return 0;
 }

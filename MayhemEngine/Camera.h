@@ -1,7 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
-
+#include <GLFW/glfw3.h>
 
 class Camera
 {
@@ -23,20 +23,36 @@ public:
 	void StopMoveUp();
 	void StopMoveDown();
 
+	void StartRotation();
+	void StopRotation();
+
+	void SetMousePos(double xPos, double yPos);
+
 	void Update(double);
 
 	const glm::vec3 GetPosition();
-	const float GetPitch();
-	const float GetYaw();
-	const float GetRoll();
+	const glm::vec3 GetDirection();
+	const glm::vec3 GetUpDirection();
 
 private:
 	glm::vec3 m_position;
 	glm::vec3 m_velocity;
 
+	void CalculateDirections();
+
 	float m_moveSpeed;
-	float m_pitch;
-	float m_yaw;
-	float m_roll;
+	float m_mouseSpeed;
+
+	float m_horizontalAngle;
+	float m_verticalAngle;
+
+	bool m_rotating;
+	glm::vec2 m_prevMousePos;
+	glm::vec2 m_currentMousePos;
+
+	glm::vec3 m_direction;
+
+	glm::vec3 m_upDirection;
+	glm::vec3 m_rightDirection;
 };
 

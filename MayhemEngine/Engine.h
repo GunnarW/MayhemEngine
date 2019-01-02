@@ -20,7 +20,7 @@
 #include "PointLightObjectHandle.h"
 #include "DirectionLightObjectHandle.h"
 #include "SpotLightObjectHandle.h"
-
+#include "TerrainObjectHandle.h"
 
 class Engine
 {
@@ -38,12 +38,13 @@ public:
 private:
 	void CreateHandle();
 	void LoadGameObjects();
-	void LoadGameObject(ParsedObject, int);
+	void LoadGameObject(ParsedObject object, int handlerIndex);
 	void UpdateHandlers();
-	void CreateDefaultObject(ParsedObject, int);
-	void CreatePointLightObject(ParsedObject, int);
-	void CreateDirectionLightObject(ParsedObject, int);
-	void CreateSpotLightObject(ParsedObject, int);
+	void CreateDefaultObject(ParsedObject object, int handlerIndex);
+	void CreatePointLightObject(ParsedObject object, int handlerIndex);
+	void CreateDirectionLightObject(ParsedObject object, int handlerIndex);
+	void CreateSpotLightObject(ParsedObject object, int handlerIndex);
+	void CreateTerrainObject(ParsedObject object, int handlerIndex);
 	
 	Engine *m_enginePtr = 0;
 	GLuint m_width;

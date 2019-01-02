@@ -1,18 +1,20 @@
 #include "Camera.h"
 
 
-
 Camera::Camera()
 {
-	m_position = glm::vec3(0.0f, 5.0f, 25.0f);
+	m_position = glm::vec3(0.0f, 5.0f, 50.0f);
+	
 
-	m_pitch = 0;
-	m_yaw = 0;
-	m_roll = 0;
+	m_moveSpeed = 130.0f;
+	m_mouseSpeed = 0.6f;
+	m_rotating = false;
 
-	m_moveSpeed = 6.0f;
+	m_horizontalAngle = 0.0f;
+	m_verticalAngle = 0.0f;
+
+	CalculateDirections();
 }
-
 
 Camera::~Camera()
 {
@@ -30,23 +32,24 @@ void Camera::StartMoveBackward()
 
 void Camera::StartMoveLeft()
 {
-	m_velocity.x = -m_moveSpeed;
+	m_velocity.x = m_moveSpeed;
 }
 
 void Camera::StartMoveRight()
 {
-	m_velocity.x = m_moveSpeed;
+	m_velocity.x = -m_moveSpeed;
 }
 
 void Camera::StartMoveUp()
 {
-	m_velocity.y = m_moveSpeed;
+	m_velocity.y = -m_moveSpeed;
 }
 
 void Camera::StartMoveDown()
 {
-	m_velocity.y = -m_moveSpeed;
+	m_velocity.y = m_moveSpeed;
 }
+
 
 void Camera::StopMoveForward()
 {
@@ -78,10 +81,22 @@ void Camera::StopMoveDown()
 	m_velocity.y = 0.0f;
 }
 
-
 void Camera::Update(double DT)
 {
-	m_position += m_velocity * (float)DT;
+	// forward/backwards
+	m_position +=  m_velocity.z * m_direction * (float)DT;
+	// up/down
+	m_position += m_velocity.y * m_upDirection * (float)DT;
+	// left/right
+	m_position += m_velocity.x * m_rightDirection * (float)DT;
+
+
+	if (m_rotating)
+	{
+		m_horizontalAngle += m_mouseSpeed * (float)DT * float(m_prevMousePos.x - m_currentMousePos.x);
+		m_verticalAngle += m_mouseSpeed * (float)DT * float(m_prevMousePos.y - m_currentMousePos.y);
+		CalculateDirections();
+	}
 }
 
 const glm::vec3 Camera::GetPosition()
@@ -89,17 +104,46 @@ const glm::vec3 Camera::GetPosition()
 	return m_position;
 }
 
-const float Camera::GetPitch()
+void Camera::StartRotation()
 {
-	return m_pitch;
+	m_rotating = true;
 }
 
-const float Camera::GetYaw()
+void Camera::StopRotation()
 {
-	return m_yaw;
+	m_rotating = false;
 }
 
-const float Camera::GetRoll()
+void Camera::SetMousePos(double xPos, double yPos)
 {
-	return m_roll;
+	m_prevMousePos = m_currentMousePos;
+	m_currentMousePos = glm::vec2(xPos, yPos);
+}
+
+const glm::vec3 Camera::GetDirection()
+{
+	return m_direction;
+}
+
+
+void Camera::CalculateDirections()
+{
+	m_direction = glm::vec3(
+		cos(m_verticalAngle) * sin(m_horizontalAngle),
+		sin(m_verticalAngle),
+		cos(m_verticalAngle) * cos(m_horizontalAngle)
+	);
+
+	m_rightDirection = glm::vec3(
+		sin(m_horizontalAngle - 3.14f / 2.0f),
+		0.0f, 
+		cos(m_horizontalAngle - 3.14f / 2.0f)
+	);
+
+	m_upDirection = glm::cross(m_rightDirection, m_direction);
+}
+
+const glm::vec3 Camera::GetUpDirection()
+{
+	return m_upDirection;
 }

@@ -19,7 +19,11 @@ struct ParsedObject
 	glm::vec3 diffuse;
 	glm::vec3 specular;
 
+	glm::vec2 gridSize;
+
 	std::string texture;
+	std::string slopeTexture;
+	std::string heightmap;
 	std::string objectFile;
 	std::string vs;
 	std::string fs;
@@ -31,6 +35,9 @@ struct ParsedObject
 	float quadratic;
 	float cutOff;
 	float outerCutOff;
+	float altitudeScale;
+
+	int vertexCount;
 };
 
 class SceneLoader
@@ -52,8 +59,11 @@ private:
 	std::vector<ParsedObject> m_parsedObjects;
 
 	glm::vec3 LoadVec3(nlohmann::json);
+	glm::vec2 LoadVec2(nlohmann::json);
 	std::string LoadString(nlohmann::json);
 	bool LoadBool(nlohmann::json);
 	float LoadFloat(nlohmann::json);
+
+	int LoadInt(nlohmann::json);
 };
 

@@ -38,11 +38,11 @@ public:
 	void RenderSpotLight(const SpotLightObjectHandle* handle, const unsigned _int32 index, Shader* shader);
 	void SetPosition(glm::vec3*);
 	void LoadModel(MayhemObjectHandle*, std::string);
+	unsigned int TextureFromFile(const char *path, const std::string &directory, bool gamma = false);
 
 protected:
 	void ProcessNode(MayhemObjectHandle* handle, aiNode *node, const aiScene *scene);
 	Mesh ProcessMesh(MayhemObjectHandle* handle, aiMesh *mesh, const aiScene *scene);
 	std::vector<Texture> LoadMaterialTextures(MayhemObjectHandle* handle, aiMaterial*, aiTextureType, std::string);
-	unsigned int TextureFromFile(const char*, const std::string&, bool gamma = false);
 };
 
