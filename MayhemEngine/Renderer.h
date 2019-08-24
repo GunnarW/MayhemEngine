@@ -20,6 +20,7 @@
 #include "PointLightObjectHandle.h"
 #include "DirectionLightObjectHandle.h"
 #include "SpotLightObjectHandle.h"
+#include "SkyboxObjectHandle.h"
 
 #include "Shader.h"
 #include "MayhemGameHelper.h"
@@ -33,11 +34,13 @@ public:
 	void Draw();
 	void Update(double dt);
 	void RenderDefault(const DefaultObjectHandle* handle, Shader* shader);
+	void RenderSkybox(const SkyboxObjectHandle* handle, Shader* shader);
 	void RenderPointLight(const PointLightObjectHandle* handle, const unsigned _int32 index, Shader* shader);
 	void RenderDirectionLight(const DirectionLightObjectHandle* handle, const unsigned _int32 index, Shader* shader);
 	void RenderSpotLight(const SpotLightObjectHandle* handle, const unsigned _int32 index, Shader* shader);
 	void SetPosition(glm::vec3*);
 	void LoadModel(MayhemObjectHandle*, std::string);
+	unsigned int LoadCubeMap(MayhemObjectHandle*, std::vector<std::string> faces);
 	unsigned int TextureFromFile(const char *path, const std::string &directory, bool gamma = false);
 
 protected:

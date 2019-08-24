@@ -21,6 +21,7 @@
 #include "DirectionLightObjectHandle.h"
 #include "SpotLightObjectHandle.h"
 #include "TerrainObjectHandle.h"
+#include "SkyboxObjectHandle.h"
 
 class Engine
 {
@@ -45,6 +46,7 @@ private:
 	void CreateDirectionLightObject(ParsedObject object, int handlerIndex);
 	void CreateSpotLightObject(ParsedObject object, int handlerIndex);
 	void CreateTerrainObject(ParsedObject object, int handlerIndex);
+	void CreateSkyboxObject(ParsedObject object, int handlerIndex);
 	
 	Engine *m_enginePtr = 0;
 	GLuint m_width;

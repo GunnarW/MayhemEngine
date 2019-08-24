@@ -17,6 +17,7 @@
 
 #include "MayhemGameHelper.h"
 #include "TerrainGenerator.h"
+#include "SkyboxGenerator.h"
 
 class GraphicsEngine
 {
@@ -28,17 +29,23 @@ public:
 	void Update(double dt);
 	void Render();
 
+	void ConfigureShaders();
+
 	void AddObjectHandler(MayhemObjectHandle* handle);
 	void LoadModel(MayhemObjectHandle* handle, std::string path);
+
 	void GenerateTerrain(TerrainObjectHandle* handle);
+	void GenerateSkybox(SkyboxObjectHandle *handle);
 
 	void InitializeShader(MayhemObjectHandle* handle, const char* vs, const char* fs);
+	void InitializeFrameBuffer();
 
 	void AddDefaultObjectHandler(DefaultObjectHandle* handle);
 	void AddPointLightObjectHandler(PointLightObjectHandle* handle);
 	void AddDirectionLightObjectHandler(DirectionLightObjectHandle* handle);
 	void AddSpotLightObjectHandler(SpotLightObjectHandle* handle);
 	void AddTerrainObjectHandler(TerrainObjectHandle *handle);
+	void AddSkyboxObjectHandler(SkyboxObjectHandle* handle);
 
 	// getters
 	GLFWwindow* GetWindow() const;
@@ -50,6 +57,7 @@ private:
 	GLFWwindow* m_window;
 	Renderer	m_renderer;
 	TerrainGenerator m_terrainGenerator;
+	SkyboxGenerator m_skyboxGenerator;
 
 	Camera								m_camera;
 	GLuint								m_VBO;
@@ -60,14 +68,23 @@ private:
 	unsigned int						m_height;
 	unsigned int						m_width;
 
+	unsigned int						m_frameBuffer;
+	unsigned int						m_textureColorBuffer;
+	unsigned int						m_RBO;
+	unsigned int						m_quadVAO;
+	unsigned int						m_quadVBO;
+
 	std::vector<MayhemObjectHandle*>			m_objectHandles;
 	std::vector<DefaultObjectHandle*>			m_defaultObjectHandles;
 	std::vector<PointLightObjectHandle*>		m_pointLightObjectHandles;
 	std::vector<DirectionLightObjectHandle*>	m_directionLightObjectHandles;
 	std::vector<SpotLightObjectHandle*>			m_spotLightObjectHandles;
 	std::vector<TerrainObjectHandle*>			m_terrainObjectHandles;
+	std::vector<SkyboxObjectHandle*>			m_skyboxObjectHandles;
 
 	Shader m_shader;
 	Shader m_terrainShader;
+	Shader m_skyboxShader;
+	Shader m_postProcessShader;
 };
 

@@ -3,7 +3,7 @@
 
 Camera::Camera()
 {
-	m_position = glm::vec3(0.0f, 5.0f, 50.0f);
+	m_position = glm::vec3(0.0f, 150.0f, 0.0f);
 	
 
 	m_moveSpeed = 130.0f;
@@ -22,32 +22,32 @@ Camera::~Camera()
 
 void Camera::StartMoveForward()
 {
-	m_velocity.z = -m_moveSpeed;
+	m_velocity.z = m_moveSpeed;
 }
 
 void Camera::StartMoveBackward()
 {
-	m_velocity.z = m_moveSpeed;
+	m_velocity.z = -m_moveSpeed;
 }
 
 void Camera::StartMoveLeft()
 {
-	m_velocity.x = m_moveSpeed;
+	m_velocity.x = -m_moveSpeed;
 }
 
 void Camera::StartMoveRight()
 {
-	m_velocity.x = -m_moveSpeed;
+	m_velocity.x = m_moveSpeed;
 }
 
 void Camera::StartMoveUp()
 {
-	m_velocity.y = -m_moveSpeed;
+	m_velocity.y = m_moveSpeed;
 }
 
 void Camera::StartMoveDown()
 {
-	m_velocity.y = m_moveSpeed;
+	m_velocity.y = -m_moveSpeed;
 }
 
 
@@ -146,4 +146,9 @@ void Camera::CalculateDirections()
 const glm::vec3 Camera::GetUpDirection()
 {
 	return m_upDirection;
+}
+
+const glm::mat4 Camera::GetViewMatrix()
+{
+	return glm::lookAt(m_position, m_position + m_direction, m_upDirection);
 }

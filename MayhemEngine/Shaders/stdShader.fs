@@ -10,7 +10,6 @@ struct Material
     sampler2D texture_specular;
     sampler2D texture_slope;
     float shininess;
-    bool hasSlope;
 };
 
 struct PointLight
@@ -64,7 +63,6 @@ uniform DirectionLight directionLights[10];
 uniform SpotLight spotLights[10];
 uniform Material material;
 
-const float maxSlope = 0.4;
 const float levels = 6.0;
 const bool celShading = true;
 
@@ -117,15 +115,6 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPosition, vec3 viewD
     vec3 diffuse = light.diffuse * diff * vec3(texture(material.texture_diffuse, TexCoords));
     vec3 specular = light.specular * spec * vec3(texture(material.texture_diffuse, TexCoords));
 
-    vec3 downDirection = vec3(0.0, -1.0, 0.0);
-    float slope = dot(normal, downDirection);
-    if (material.hasSlope && (slope > maxSlope || slope < -maxSlope))
-    {
-        ambient = light.ambient * vec3(texture(material.texture_slope, TexCoords));
-        diffuse = light.diffuse * diff * vec3(texture(material.texture_slope, TexCoords));
-        specular = light.specular * spec * vec3(texture(material.texture_slope, TexCoords));
-    }
-
     ambient *= attenuation;
     diffuse *= attenuation;
     specular *= attenuation;
@@ -152,14 +141,6 @@ vec3 CalcDirectionLight(DirectionLight light, vec3 normal, vec3 viewDirection)
     vec3 diffuse = light.diffuse * diff * vec3(texture(material.texture_diffuse, TexCoords));
     vec3 specular = light.specular * spec * vec3(texture(material.texture_diffuse, TexCoords));
 
-    vec3 downDirection = vec3(0.0, -1.0, 0.0);
-    float slope = dot(normal, downDirection);
-    if (material.hasSlope && (slope < maxSlope && slope > -maxSlope))
-    {
-        ambient = light.ambient * vec3(texture(material.texture_slope, TexCoords));
-        diffuse = light.diffuse * diff * vec3(texture(material.texture_slope, TexCoords));
-        specular = light.specular * spec * vec3(texture(material.texture_slope, TexCoords));
-    }
     return (ambient + specular + diffuse);
 }
 
@@ -189,15 +170,6 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPosition, vec3 viewDir
     vec3 ambient = light.ambient * vec3(texture(material.texture_diffuse, TexCoords));
     vec3 diffuse = light.diffuse * diff * vec3(texture(material.texture_diffuse, TexCoords));
     vec3 specular = light.specular * spec * vec3(texture(material.texture_diffuse, TexCoords));
-
-    vec3 downDirection = vec3(0.0, -1.0, 0.0);
-    float slope = dot(normal, downDirection);
-    if (material.hasSlope && (slope > maxSlope || slope < -maxSlope))
-    {
-        ambient = light.ambient * vec3(texture(material.texture_slope, TexCoords));
-        diffuse = light.diffuse * diff * vec3(texture(material.texture_slope, TexCoords));
-        specular = light.specular * spec * vec3(texture(material.texture_slope, TexCoords));
-    }
 
     ambient *= attenuation * intensity;
     diffuse *= attenuation * intensity;

@@ -18,15 +18,21 @@ struct Texture {
 	std::string path;
 };
 
+
 class Mesh
 {
 public:
 	Mesh();
 	Mesh(std::vector<Vertex>, std::vector<unsigned int>, std::vector<Texture>);
+	Mesh(std::vector<Vertex>, std::vector<Texture>);
+
 	~Mesh();
 
 	virtual void Initialize(std::vector<Vertex>, std::vector<unsigned int>, std::vector<Texture>);
+	virtual void Initialize(std::vector<Vertex>, std::vector<Texture>);
+
 	void Draw(Shader*);
+	void DrawSkybox(Shader* shader);
 
 private:
 

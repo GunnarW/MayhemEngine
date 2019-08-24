@@ -64,18 +64,31 @@ uniform SpotLight spotLights[10];
 uniform Material material;
 
 const float maxSlope = 0.4;
-const float levels = 6.0;
+const float levels = 3.0;
 const bool celShading = true;
+const float colorBitDepth = 6;
 
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPosition, vec3 viewDirection);
 vec3 CalcDirectionLight(DirectionLight light, vec3 normal, vec3 viewDirection);
 vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPosition, vec3 viewDirection);
+vec3 CalcColorBitDepth(vec3 color);
+
+bool isSlopeTexture;
+
+void calcDefaultTexture()
+{
+    vec3 downDirection = vec3(0.0, -1.0, 0.0);
+    float slope = dot(Normal, downDirection);
+    isSlopeTexture = !(slope > maxSlope || slope < -maxSlope);
+}
 
 void main()
 {
     vec3 norm = normalize(Normal);
     vec3 viewDirection = normalize(cameraPosition - FragPos);
     vec3 result = vec3(0.0, 0.0, 0.0);
+
+    calcDefaultTexture();
 
     for (int i = 0; i < numberPointLights; i++)
     {
@@ -84,7 +97,7 @@ void main()
 
     for (int i = 0; i < numberDirectionLights; i++)
     {
-        result += CalcDirectionLight(directionLights[i], norm, viewDirection);
+       result += CalcDirectionLight(directionLights[i], norm, viewDirection);
     }
 
     for (int i = 0; i < numberSpotLights; i++)
@@ -116,9 +129,7 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPosition, vec3 viewD
     vec3 diffuse = light.diffuse * diff * vec3(texture(material.texture_diffuse, TexCoords));
     vec3 specular = light.specular * spec * vec3(texture(material.texture_diffuse, TexCoords));
 
-    vec3 downDirection = vec3(0.0, -1.0, 0.0);
-    float slope = dot(normal, downDirection);
-    if ((slope > maxSlope || slope < -maxSlope))
+    if (isSlopeTexture)
     {
         ambient = light.ambient * vec3(texture(material.texture_slope, TexCoords));
         diffuse = light.diffuse * diff * vec3(texture(material.texture_slope, TexCoords));
@@ -147,17 +158,15 @@ vec3 CalcDirectionLight(DirectionLight light, vec3 normal, vec3 viewDirection)
         diff = level / levels;
     }
 
-    vec3 ambient = light.ambient * vec3(texture(material.texture_diffuse, TexCoords));
-    vec3 diffuse = light.diffuse * diff * vec3(texture(material.texture_diffuse, TexCoords));
-    vec3 specular = light.specular * spec * vec3(texture(material.texture_diffuse, TexCoords));
+    vec3 ambient = light.ambient * CalcColorBitDepth(vec3(texture(material.texture_diffuse, TexCoords)));
+    vec3 diffuse = light.diffuse * diff * CalcColorBitDepth(vec3(texture(material.texture_diffuse, TexCoords)));
+    vec3 specular = light.specular * spec * CalcColorBitDepth(vec3(texture(material.texture_diffuse, TexCoords)));
 
-    vec3 downDirection = vec3(0.0, -1.0, 0.0);
-    float slope = dot(normal, downDirection);
-    if ((slope < maxSlope && slope > -maxSlope))
+    if (isSlopeTexture)
     {
-        ambient = light.ambient * vec3(texture(material.texture_slope, TexCoords));
-        diffuse = light.diffuse * diff * vec3(texture(material.texture_slope, TexCoords));
-        specular = light.specular * spec * vec3(texture(material.texture_slope, TexCoords));
+        ambient = light.ambient * CalcColorBitDepth(vec3(texture(material.texture_slope, TexCoords)));
+        diffuse = light.diffuse * diff * CalcColorBitDepth(vec3(texture(material.texture_slope, TexCoords)));
+        specular = light.specular * spec * CalcColorBitDepth(vec3(texture(material.texture_slope, TexCoords)));
     }
     return (ambient + specular + diffuse);
 }
@@ -189,9 +198,7 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPosition, vec3 viewDir
     vec3 diffuse = light.diffuse * diff * vec3(texture(material.texture_diffuse, TexCoords));
     vec3 specular = light.specular * spec * vec3(texture(material.texture_diffuse, TexCoords));
 
-    vec3 downDirection = vec3(0.0, -1.0, 0.0);
-    float slope = dot(normal, downDirection);
-    if ((slope > maxSlope || slope < -maxSlope))
+    if (isSlopeTexture)
     {
         ambient = light.ambient * vec3(texture(material.texture_slope, TexCoords));
         diffuse = light.diffuse * diff * vec3(texture(material.texture_slope, TexCoords));
@@ -203,4 +210,14 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPosition, vec3 viewDir
     specular *= attenuation * intensity;
 
     return (ambient + diffuse + specular);
+}
+
+vec3 CalcColorBitDepth(vec3 color)
+{
+    vec3 level = vec3(
+        floor(color.x * colorBitDepth),
+        floor(color.y * colorBitDepth),
+        floor(color.z * colorBitDepth)
+    );
+    return color;
 }

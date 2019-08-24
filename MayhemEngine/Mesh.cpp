@@ -11,6 +11,11 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
 	Initialize(vertices, indices, textures);
 }
 
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<Texture> textures)
+{
+	Initialize(vertices, textures);
+}
+
 Mesh::~Mesh()
 {
 }
@@ -47,8 +52,30 @@ void Mesh::Initialize(std::vector<Vertex> vertices, std::vector<unsigned int> in
 	glBindVertexArray(0);
 }
 
+void Mesh::Initialize(std::vector<Vertex> vertices, std::vector<Texture> textures)
+{
+	m_vertices = vertices;
+	m_textures = textures;
+
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+
+	// vertex positions
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+
+	glBindVertexArray(0);
+}
+
 void Mesh::Draw(Shader* shader)
 {
+
+
 	unsigned int diffuseNr = 1;
 	unsigned int specularNr = 1;
 	shader->SetBool("material.hasSlope", false);
@@ -70,10 +97,32 @@ void Mesh::Draw(Shader* shader)
 			shader->SetBool("material.hasSlope", true);
 		}
 	}
+
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_FRONT);
+	glDepthFunc(GL_LEQUAL);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glLineWidth(4);
+
+	//DRAW MESH A FIRST TIME
+	glCullFace(GL_BACK);
+	glDepthFunc(GL_LESS);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	
 	glActiveTexture(GL_TEXTURE0);
 
 	// draw mesh
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
+}
+
+void Mesh::DrawSkybox(Shader* shader)
+{
+	glBindVertexArray(VAO);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, m_textures[0].id);
+	glDrawArrays(GL_TRIANGLES, 0, m_vertices.size());
+	glBindVertexArray(0);
+	glDepthFunc(GL_LESS);
 }

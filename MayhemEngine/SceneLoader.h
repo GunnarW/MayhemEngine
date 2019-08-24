@@ -38,6 +38,8 @@ struct ParsedObject
 	float altitudeScale;
 
 	int vertexCount;
+
+	std::string cubeMap[6];
 };
 
 class SceneLoader
@@ -65,5 +67,7 @@ private:
 	float LoadFloat(nlohmann::json);
 
 	int LoadInt(nlohmann::json);
+
+	std::vector<std::string> LoadStringVector(nlohmann::json jsonArray);
 };
 

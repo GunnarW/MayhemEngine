@@ -26,6 +26,8 @@ bool Engine::Initialize() {
 }
 
 void Engine::Run() {
+
+	m_graphicsEngine.ConfigureShaders();
 	// Game loop
 	while (!glfwWindowShouldClose(m_graphicsEngine.GetWindow()))
 	{
@@ -99,6 +101,10 @@ void Engine::LoadGameObject(ParsedObject object, int handlerIndex)
 	else if (object.type == "terrain")
 	{
 		CreateTerrainObject(object, handlerIndex);
+	}
+	else if (object.type == "skybox")
+	{
+		CreateSkyboxObject(object, handlerIndex);
 	}
 	else
 	{
@@ -182,4 +188,18 @@ void Engine::CreateTerrainObject(ParsedObject object, int handlerIndex)
 	mayhemObject->SetVertexCount(object.vertexCount);
 
 	m_graphicsEngine.GenerateTerrain(mayhemObject);
+}
+
+void Engine::CreateSkyboxObject(ParsedObject object, int handlerIndex)
+{
+	SkyboxObjectHandle* mayhemObject = new SkyboxObjectHandle(&objects, objects.CreateObject());
+	m_objectHandles.push_back(mayhemObject);
+	m_graphicsEngine.AddSkyboxObjectHandler(mayhemObject);
+
+	for (int i = 0; i < 6; i++)
+	{
+		mayhemObject->AddTexturePath(object.cubeMap[i]);
+	}
+
+	m_graphicsEngine.GenerateSkybox(mayhemObject);
 }

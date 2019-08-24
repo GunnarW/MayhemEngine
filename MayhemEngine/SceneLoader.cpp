@@ -70,6 +70,15 @@ void SceneLoader::ParseObject(nlohmann::json jsonObject)
 
 	object.vertexCount = LoadInt(jsonObject["vertexCount"]);
 
+	std::vector<std::string> cubeMap = LoadStringVector(jsonObject["cubeMap"]);
+	if (cubeMap.size() == 6)
+	{
+		for (int i = 0; i < cubeMap.size(); i++)
+		{
+			object.cubeMap[i] = cubeMap[i];
+		}
+	}
+
 	m_parsedObjects.push_back(object);
 }
 
@@ -127,3 +136,13 @@ int SceneLoader::LoadInt(nlohmann::json jsonInt)
 	}
 	return 0;
 }
+
+std::vector<std::string> SceneLoader::LoadStringVector(nlohmann::json jsonArray)
+{
+	if (jsonArray != nullptr)
+	{
+		return jsonArray;
+	}
+	return std::vector<std::string>();
+}
+

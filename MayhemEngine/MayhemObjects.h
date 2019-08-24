@@ -65,10 +65,11 @@ private:
 
 	Shader	m_shaders[MAX_GAME_OBJECTS];
 
-	friend class MayhemObjectHandle;
-	friend class DefaultObjectHandle;
-	friend class PointLightObjectHandle;
 	friend class DirectionLightObjectHandle;
+	friend class PointLightObjectHandle;
+	friend class SkyboxObjectHandle;
 	friend class SpotLightObjectHandle;
 	friend class TerrainObjectHandle;
+	friend class DefaultObjectHandle;
+	friend class MayhemObjectHandle;
 };

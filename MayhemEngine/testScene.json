@@ -14,7 +14,7 @@
         {
             "renderableType": "default",
             "position": {
-                "x": 8,
+                "x": 30,
                 "y": 0.0,
                 "z": 0.0
             },
@@ -25,7 +25,7 @@
         {
             "renderableType": "default",
             "position": {
-                "x": -8,
+                "x": -50,
                 "y": 0.0,
                 "z": 0.0
             },
@@ -90,9 +90,9 @@
         {
             "renderableType": "directionLight",
             "direction": {
-                "x": 0.5,
+                "x": 0.1,
                 "y": -0.10,
-                "z": 1.00
+                "z": 0.10
             },
             "ambient": {
                 "x": 0.1,
@@ -163,7 +163,24 @@
                 "x": 2000,
                 "y": 2000
             },
-            "vertexCount":  524
+            "vertexCount": 524
+        },
+        {
+            "renderableType": "skybox",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "enable": true,
+            "cubeMap": [
+                "Textures/skybox/bluecloud_ft.jpg",
+                "Textures/skybox/bluecloud_bk.jpg",
+                "Textures/skybox/bluecloud_up.jpg",
+                "Textures/skybox/bluecloud_dn.jpg",
+                "Textures/skybox/bluecloud_rt.jpg",
+                "Textures/skybox/bluecloud_lf.jpg"
+            ]
         }
     ]
 }

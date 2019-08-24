@@ -21,9 +21,6 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>GraphicsEngine</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>GraphicsEngine</Filter>
-    </ClCompile>
     <ClCompile Include="MayhemObjectHandle.cpp">
       <Filter>Handles</Filter>
     </ClCompile>
@@ -40,9 +37,20 @@
       <Filter>Handles</Filter>
     </ClCompile>
     <ClCompile Include="MayhemGameHelper.cpp" />
-    <ClCompile Include="TerrainGenerator.cpp" />
     <ClCompile Include="TerrainObjectHandle.cpp">
       <Filter>Handles</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyboxObjectHandle.cpp">
+      <Filter>Handles</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>GraphicsEngine\Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainGenerator.cpp">
+      <Filter>GraphicsEngine\Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyboxGenerator.cpp">
+      <Filter>GraphicsEngine\Operations</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,9 +81,6 @@
     <ClInclude Include="Mesh.h">
       <Filter>GraphicsEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>GraphicsEngine</Filter>
-    </ClInclude>
     <ClInclude Include="MayhemObjectHandle.h">
       <Filter>Handles</Filter>
     </ClInclude>
@@ -92,9 +97,20 @@
       <Filter>Handles</Filter>
     </ClInclude>
     <ClInclude Include="MayhemGameHelper.h" />
-    <ClInclude Include="TerrainGenerator.h" />
     <ClInclude Include="TerrainObjectHandle.h">
       <Filter>Handles</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyboxObjectHandle.h">
+      <Filter>Handles</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>GraphicsEngine\Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainGenerator.h">
+      <Filter>GraphicsEngine\Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyboxGenerator.h">
+      <Filter>GraphicsEngine\Operations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +131,9 @@
     </Filter>
     <Filter Include="Handles">
       <UniqueIdentifier>{81b776dc-72d3-4af1-bf5c-1e71f3f8b46b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsEngine\Operations">
+      <UniqueIdentifier>{eb7d8c20-42ed-4d4d-8dee-f789fcff08b7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

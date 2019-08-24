@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 #include <GLFW/glfw3.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 class Camera
 {
@@ -33,6 +34,7 @@ public:
 	const glm::vec3 GetPosition();
 	const glm::vec3 GetDirection();
 	const glm::vec3 GetUpDirection();
+	const glm::mat4 GetViewMatrix();
 
 private:
 	glm::vec3 m_position;

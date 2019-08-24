@@ -26,6 +26,15 @@ void Renderer::RenderDefault(const DefaultObjectHandle* handle, Shader* shader)
 	}
 }
 
+void Renderer::RenderSkybox(const SkyboxObjectHandle* handle, Shader* shader)
+{
+	std::vector<Mesh>* meshes = handle->GetMeshes();
+	for (unsigned int i = 0; i < meshes->size(); i++)
+	{
+		meshes->at(i).DrawSkybox(shader);
+	}
+}
+
 void Renderer::RenderPointLight(const PointLightObjectHandle* handle, const unsigned _int32 index, Shader* shader)
 {
 	shader->SetVec3(MGH::sprintf("pointLights[%d].position", index), handle->GetPosition());
@@ -85,6 +94,37 @@ void Renderer::LoadModel(MayhemObjectHandle* handle, std::string path)
 	handle->SetDirectory(path.substr(0, path.find_last_of('/')));
 
 	ProcessNode(handle, scene->mRootNode, scene);
+}
+
+unsigned int Renderer::LoadCubeMap(MayhemObjectHandle*, std::vector<std::string> faces)
+{
+	unsigned int textureID;
+
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+	int width, height, channels;
+	for (unsigned int i = 0; i < faces.size(); i++)
+	{
+		unsigned char *data = stbi_load(faces[i].c_str(), &width, &height, &channels, 0);
+		if (data)
+		{
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+			stbi_image_free(data);
+		}
+		else
+		{
+			std::cout << "Cubemap texture failed to load at path: " << faces[i] << std::endl;
+			stbi_image_free(data);
+		}
+	}
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+	return textureID;
 }
 
 void Renderer::ProcessNode(MayhemObjectHandle* handle, aiNode *node, const aiScene *scene)
